@@ -4,7 +4,7 @@
 
 ## 1. 저장소 클론 (Clone)
 기존 작업 영역 밖인 최상위 OS Layer에 소스코드를 클론합니다.
-[https://github.com/aimldl/my-os](https://github.com/aimldl/my-os)
+[https://github.com/aimldl/flow-os](https://github.com/aimldl/flow-os)
 
 ```bash
 git clone https://github.com/aimldl/flow-os ~/flow-os
