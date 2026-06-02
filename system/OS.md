@@ -4,9 +4,10 @@
 ## 구조
 ~
 ├── OS.md
+├── README.md
 ├── RESUME.md
 ├── TODO.md
-└── HISTORY.md
+└── USAGE.md
 
 ~/my
 ├── github

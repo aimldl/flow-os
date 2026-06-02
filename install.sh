@@ -13,6 +13,7 @@ cp "$BASE_DIR/zsh/.zshconfig" ~/
 # system files
 cp "$BASE_DIR/system/OS.md" ~/
 cp "$BASE_DIR/system/README.md" ~/
+cp "$BASE_DIR/system/USAGE.md" ~/
 
 # Initialize TODO and RESUME
 cp "$BASE_DIR/system/TODO.template.md" ~/TODO.md
