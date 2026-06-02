@@ -24,6 +24,7 @@
 4. **행동이 명확해야 합니다**: 다음 첫 걸음을 망설임 없이 내디딜 수 있게 돕습니다.
 
 ## 핵심 구조 설계 철학
-**My OS 설정(`my-os`)과 실제 작업공간(`my`)을 분리**합니다.
-- `~` (My OS Layer): 시스템 환경, 워크플로우 정의, 상태 기록
+**My Flow OS 설정(`flow-os`)과 실제 작업공간(`my`)을 분리**합니다.
+- `~` (My OS Layer): dotfiles 위치
+- `~/flow-os` (My OS Layer): template files, 워크플로우 정의, 상태 기록
 - `~/my` (Workspace Layer): 실제 코드, 프로젝트, 저장소 등
