@@ -1,30 +1,25 @@
-# My Flow OS 2.0
-개인 개발 환경을 **기억 의존형**에서 **상태 기반 실행**으로 전환합니다. 다양한 컴퓨팅 기기에서 **동일한 CLI 환경과 작업 체계**를 구축하고 동기화합니다.
+Translations: **[English]**(README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
 
-## 📖 문서 안내
-- 🚀 **[설치 및 셋업 가이드 (INSTALL.md)](INSTALL.md)**
-- 💻 **[사용 및 워크플로우 매뉴얼 (USAGE.md)](USAGE.md)**
-  - 실제 작업 흐름과 핵심 명령어를 확인하세요.
+# Flow-os
 
----
+> An anti-procrastination dev system minimizing cognitive load and instantly triggering Flow State.
 
-## My Flow OS는 무엇인가?
-단순한 개발 환경이라기보다 일관되게 작업을 시작, 진행, 마무리하는 방식의 체계이며, 개발 측면에서 뇌가 동작하는 방식을 규격화한 운영 체제에 가까운, 저의 **Personal Development Operating System 2.0**입니다. 
+### 📌 The Motivation
+Delaying critical work is a universal psychological hurdle. The friction of setting up environments causes a massive cognitive drain. Flow-os serves as a practical countermeasure against procrastination. By removing the barriers to restarting tasks, the system makes returning to work effortless and helps build continuous momentum.
 
-## 왜 만들었는가 (Why?)
-개발 환경이 복잡해질수록 겪는 다음의 문제들을 해결하기 위해 설계되었습니다.
-- 이전에 하던 작업의 컨텍스트를 떠올리는 데 드는 시간 낭비
-- 여러 대의 기기를 사용할 때 작업 상태의 단절
-- "정리되지 않은 상태"가 주는 심리적 부담으로 인한 작업 지연
+### ⚙️ Core Philosophy
 
-## 핵심 설계 철학
-1. **기억에 의존하지 않습니다**: 필요한 정보를 머릿속이 아니라 시스템에 기록하고 직접 봅니다.
-2. **시작점은 항상 동일합니다**: 어떤 환경이든 터미널 진입점이 같아 시작이 쉽습니다.
-3. **Remote가 기준입니다**: 기준이 되는 상태는 항상 Remote(GitHub 등)에 보관합니다.
-4. **행동이 명확해야 합니다**: 다음 첫 걸음을 망설임 없이 내디딜 수 있게 돕습니다.
+1.  **Cognitive Relief:** Conserves the crucial mental energy typically wasted during the preparation phase, reserving it strictly for executing the actual tasks at hand.
+2.  **Frictionless Return:** There is no magic bullet to completely block out distractions. However, by drastically lowering the barrier to resume, returning from a detour becomes much easier. This encourages consistent attempts to get back on track, driving actual progress rather than abandonment.
+3.  **Instant Resumption:** Records the precise entry point of the workflow. Once the friction is removed, the system enables an immediate and seamless restart at any given moment, eventually building the habit of entering the Flow State.
 
-## 핵심 구조 설계 철학
-**My Flow OS 설정(`flow-os`)과 실제 작업공간(`my`)을 분리**합니다.
-- `~` (My OS Layer): dotfiles 위치
-- `~/flow-os` (My OS Layer): template files, 워크플로우 정의, 상태 기록
-- `~/my` (Workspace Layer): 실제 코드, 프로젝트, 저장소 등
+### 🧠 Why This Works: The Psychology of Flow
+
+**`[ Cognitive Relief ] ➔ [ Frictionless Return ] ➔ [ Instant Resumption ]`**
+
+The architecture of Flow-os is based on the psychology of habit formation and activation energy:
+*   By removing the heavy mental cost of environment setup (**Cognitive Relief**), we eliminate the dread of starting over. 
+*   When the dread is gone, bouncing back from inevitable distractions becomes trivial (**Frictionless Return**). 
+*   Over time, this repeated ease of re-entry builds behavioral muscle memory, allowing you to bypass psychological resistance entirely and drop straight into the work (**Instant Resumption**).
+
+
