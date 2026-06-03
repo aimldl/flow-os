@@ -2,7 +2,7 @@ Translations: **English** | [한국어](README.ko.md) | [日本語](README.ja.md
 
 # Flow-os
 
-> An anti-procrastination dev system minimizing cognitive load and instantly triggering Flow State.
+> A personal anti-procrastination dev system that minimizes cognitive load to resume priority tasks, hopefully fostering Flow State.
 
 ### 📌 The Motivation
 Delaying critical work is a universal psychological hurdle. The friction of setting up environments causes a massive cognitive drain. Flow-os serves as a practical countermeasure against procrastination. By removing the barriers to restarting tasks, the system makes returning to work effortless and helps build continuous momentum.
