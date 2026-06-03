@@ -1,4 +1,4 @@
-Translations: **[English]** | [한국어](README.ko.md) | [日本語](README.ja.md)
+Translations: **English** | [한국어](README.ko.md) | [日本語](README.ja.md)
 
 # Flow-os
 
