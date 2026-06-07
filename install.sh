@@ -1,23 +1,23 @@
 #!/bin/bash
 
-echo "🚀 Installing My OS 2.0..."
+echo "🚀 Installing Flow OS..."
 
-# This directory is where my-os repository is cloned.
-BASE_DIR="$HOME/my-os"
+# This directory is where flow-os repository is cloned.
+BASE_DIR="$HOME/flow-os"
 
-# zsh config
-cp "$BASE_DIR/zsh/.zshrc" ~/
-cp "$BASE_DIR/zsh/.zshalias" ~/
-cp "$BASE_DIR/zsh/.zshconfig" ~/
+# shell config
+cp "$BASE_DIR/shell/zsh/.zshrc" ~/
+cp "$BASE_DIR/shell/zsh/.zshalias" ~/
+cp "$BASE_DIR/shell/zsh/.zshconfig" ~/
 
-# system files
-cp "$BASE_DIR/system/OS.md" ~/
-cp "$BASE_DIR/system/README.md" ~/
-cp "$BASE_DIR/system/USAGE.md" ~/
+# core files
+cp "$BASE_DIR/core/OS.md" ~/
+cp "$BASE_DIR/core/README.md" ~/
+cp "$BASE_DIR/core/USAGE.md" ~/
 
 # Initialize TODO and RESUME
-cp "$BASE_DIR/system/TODO.template.md" ~/TODO.md
-cp "$BASE_DIR/system/RESUME.template.md" ~/RESUME.md
+cp "$BASE_DIR/core/TODO.template.md" ~/TODO.md
+cp "$BASE_DIR/core/RESUME.template.md" ~/RESUME.md
 
 # workspace
 mkdir -p ~/my/github
