@@ -1,6 +1,6 @@
 Translations: **English** | [한국어](README.ko.md) | [日本語](README.ja.md)
 
-# Flow-os
+# Flow OS
 
 > A personal anti-procrastination dev system that minimizes cognitive load to resume priority tasks, hopefully fostering Flow State.
 
