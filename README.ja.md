@@ -1,6 +1,6 @@
 Translations: [English](README.md) | [한국어](README.ko.md) | **日本語**
 
-# Flow-sys
+# Flow OS
 
 > 個人向けの先延ばし防止開発システム。優先タスクへの復帰に向けて認知的負荷を最小限に抑え、ゾーン（Flow State）への自然な導入を目指します。
 
