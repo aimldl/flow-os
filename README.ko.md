@@ -1,6 +1,6 @@
 Translations: [English](README.md) | **한국어** | [日本語](README.ja.md)
 
-# Flow-os
+# Flow-sys
 
 > 개인용 미루기 방지 개발 시스템으로 인지적 부하를 최소화해 중요한 작업으로 복귀를 돕고, 몰입 상태 (Flow State)로 들어가는데 도움이 됐으면 하는 바렘으로 설계했습니다.
 
