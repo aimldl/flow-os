@@ -47,11 +47,11 @@ echo "📌 Flow OS"
 
 echo ""
 echo "📝 TODO"
-[ -f "$HOME/TODO.md" ] && grep -v "^#" "$HOME/TODO.md" | grep -v "^$"
+[ -f "$HOME/.flow/core/TODO.md" ] && grep -v "^#" "$HOME/.flow/core/TODO.md" | grep -v "^$"
 
 echo ""
 echo "🚀 Resume"
-[ -f "$HOME/RESUME.md" ] && grep -v "^#" "$HOME/RESUME.md" | grep -v "^$"
+[ -f "$HOME/.flow/core/RESUME.md" ] && grep -v "^#" "$HOME/.flow/core/RESUME.md" | grep -v "^$"
 
 echo ""
 
@@ -92,7 +92,7 @@ __edit() {
 
 __resume_open() {
     local index="$1"
-    local resume_file="$HOME/RESUME.md"
+    local resume_file="$HOME/.flow/core/RESUME.md"
 
     local target
     target=$(grep -v '^#' "$resume_file" | grep -v '^$' | sed -n "${index}p")
@@ -137,7 +137,7 @@ __resume_target() {
 
 __write_resume() {
     local target="$1"
-    local resume_file="$HOME/RESUME.md"
+    local resume_file="$HOME/.flow/core/RESUME.md"
 
     {
         echo "# RESUME"
@@ -162,7 +162,7 @@ quit() {
     __write_resume "$target"
 
     echo "👀 Opening RESUME.md for review..."
-    __edit "$HOME/RESUME.md"
+    __edit "$HOME/.flow/core/RESUME.md"
 
     echo ""
     read -r "?✅ RESUME 검수 후 종료하려면 Enter (취소: Ctrl+C) "

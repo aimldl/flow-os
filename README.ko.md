@@ -1,52 +1,287 @@
-Translations: [English](README.md) | **한국어** | [日本語](README.ja.md)
 
-# Flow OS
+# 🚀 Flow OS
 
-> 개인용 미루기 방지 개발 시스템으로 인지적 부하를 최소화해 중요한 작업으로 복귀를 돕고, 몰입 상태 (Flow State)로 들어가는데 도움이 됐으면 하는 바렘으로 설계했습니다.
-
-### 📌 개발 배경 (The Motivation)
-중요한 일을 미루는 성향은 모두가 겪는 보편적인 심리적 장애물입니다. 특히 개발 환경을 다시 세팅하는 과정에서 발생하는 마찰(Friction)은 막대한 인지적 에너지를 고갈시킵니다. Flow-os는 이러한 미루기 습관에 대항하는 실천적인 해결책입니다. 작업을 다시 시작할 때의 진입 장벽을 완전히 제거함으로써, 언제든 가볍게 업무로 복귀하고 지속적인 추진력을 얻을 수 있도록 돕습니다.
-
-### ⚙️ 핵심 철학 (Core Philosophy)
-
-1.  **인지적 부담 완화 (Cognitive Relief):** 준비 단계에서 허비되는 많은 정신적 에너지를 보존하여, 오직 해야 할 일을 실행하는 데만 온전히 집중할 수 있도록 합니다.
-2.  **마찰 없는 복귀 (Frictionless Return):** 주의 분산을 완벽하게 차단하는 마법 같은 방법은 존재하지 않습니다. 하지만 다시 시작하는 장벽을 획기적으로 낮추면, 다른 길로 빠졌다가도 복귀하기가 훨씬 쉬워집니다. 이는 다시 궤도로 돌아오려는 지속적인 시도를 독려하며, 완전히 손을 놓아버리는 대신 실질적인 진척을 만들어냅니다.
-3.  **즉각적인 작업 재개 (Instant Resumption):** 워크플로우의 정확한 진입점(Entry point)을 기록합니다. 시작할 때의 마찰이 사라지면 언제든 즉각적이고 끊김 없는 재개가 가능해지며, 궁극적으로는 몰입 상태(Flow State)에 들어가는 습관을 형성합니다.
-
-### 🧠 작동 원리: 몰입의 심리학 (Why This Works)
-
-**`[ 인지적 부담 완화 ] ➔ [ 마찰 없는 복귀 ] ➔ [ 즉각적인 작업 재개 ]`**
-
-Flow-os의 아키텍처는 습관 형성 이론과 활성화 에너지(Activation Energy)라는 심리학적 배경을 바탕으로 설계되었습니다.
-* 환경 설정에 드는 무거운 정신적 비용을 제거함으로써 (**인지적 부담 완화**), 다시 시작하는 것에 대한 막연한 두려움을 없앱니다.
-* 두려움이 사라지면, 불가피하게 발생한 주의 분산으로부터 다시 복귀하는 과정이 매우 가벼워집니다 (**마찰 없는 복귀**).
-* 시간이 흐르면서 이 쉬운 재진입이 반복되면 행동적 근육 기억(Behavioral muscle memory)이 형성되어, 심리적 저항을 완전히 우회하고 곧바로 업무에 몰입할 수 있게 됩니다 (**즉각적인 작업 재개**).
-
-
-## 📖 문서 안내
-- 🚀 **[설치 및 셋업 가이드 (INSTALL.md)](INSTALL.md)**
-- 💻 **[사용 및 워크플로우 매뉴얼 (USAGE.md)](USAGE.md)**
-  - 실제 작업 흐름과 핵심 명령어를 확인하세요.
+> 개인의 뇌 동작 방식을 기반으로 설계된 CLI 기반 Personal Development Operating System
 
 ---
 
-## My Flow OS는 무엇인가?
-단순한 개발 환경이라기보다 일관되게 작업을 시작, 진행, 마무리하는 방식의 체계이며, 개발 측면에서 뇌가 동작하는 방식을 규격화한 운영 체제에 가까운, 저의 **Personal Development Operating System 2.0**입니다. 
+## 🎯 목적
 
-## 왜 만들었는가 (Why?)
-개발 환경이 복잡해질수록 겪는 다음의 문제들을 해결하기 위해 설계되었습니다.
-- 이전에 하던 작업의 컨텍스트를 떠올리는 데 드는 시간 낭비
-- 여러 대의 기기를 사용할 때 작업 상태의 단절
-- "정리되지 않은 상태"가 주는 심리적 부담으로 인한 작업 지연
+Flow OS의 목표는 단 하나입니다:
 
-## 핵심 설계 철학
-1. **기억에 의존하지 않습니다**: 필요한 정보를 머릿속이 아니라 시스템에 기록하고 직접 봅니다.
-2. **시작점은 항상 동일합니다**: 어떤 환경이든 터미널 진입점이 같아 시작이 쉽습니다.
-3. **Remote가 기준입니다**: 기준이 되는 상태는 항상 Remote(GitHub 등)에 보관합니다.
-4. **행동이 명확해야 합니다**: 다음 첫 걸음을 망설임 없이 내디딜 수 있게 돕습니다.
+> **기억하지 않고, 망설이지 않고, 바로 실행하는 상태를 만드는 것**
 
-## 핵심 구조 설계 철학
-**My Flow OS 설정(`flow-os`)과 실제 작업공간(`my`)을 분리**합니다.
-- `~` (My OS Layer): dotfiles 위치
-- `~/flow-os` (My OS Layer): template files, 워크플로우 정의, 상태 기록
-- `~/my` (Workspace Layer): 실제 코드, 프로젝트, 저장소 등
+---
+
+## 🧠 왜 필요한가 (Brain Model)
+
+문제는 의지가 아니라 **뇌의 구조**입니다.
+
+### 핵심 신경망
+
+- **DMN (Default Mode Network)**
+  - 멍때림 / 잡생각 / 공상
+
+- **CEN (Central Executive Network)**
+  - 집중 / 문제 해결
+
+---
+
+### 일반적인 뇌
+CEN ON → DMN OFF
+
+---
+
+### ADHD 특성
+
+
+CEN ON 상태에서도 DMN이 계속 튀어나옴
+
+👉 결과:
+- 계속 옆으로 샘
+- 집중 유지 어려움
+- 작업 복귀 실패
+
+---
+
+## 💡 핵심 해결 전략
+
+Flow OS는 억제하지 않는다.
+
+👉 대신:
+
+
+생각 → memo로 즉시 외부 배출 → 작업 복귀
+
+---
+
+## 🧠 Core Concept
+
+Flow OS는:
+
+👉 **명령 기반 시스템이 아니라 상태 기반 시스템이다**
+
+---
+
+## ⚙️ 시스템 구조
+
+
+~
+├── flow-entry       # 작업 진입 (Focus Layer)
+├── flow-state       # 실행 상태 (State Layer)
+├── my               # 실제 작업 공간 (Workspace)
+├── .flow-os         # 시스템 코어
+│   ├── bin          # CLI
+│   ├── core         # 상태 / 템플릿
+│   ├── design       # 설계 문서
+│   ├── docs         # 사용 문서
+│   └── shell        # shell 설정
+│
+├── .zshrc
+├── .zshalias
+└── .zshconfig
+
+---
+
+## 📂 레이어 구조
+
+### 🧠 1. Workspace Layer (`~/my`)
+- 실제 코드
+- 모든 작업의 원본
+
+---
+
+### 🎯 2. Flow Entry (`~/flow-entry`)
+
+
+flow-entry/
+├── 1-xxx
+├── 2-yyy
+├── 3-zzz
+├── temporary/
+│   └── memo.md
+
+#### 특징
+
+- 항상 3개 유지
+- 숫자 = 순서 (priority X, flow O)
+- 막히면 다음으로 이동
+- **시작을 멈추지 않기 위함**
+
+---
+
+### ⚡ 3. Temporary (매우 중요)
+
+
+temporary/memo.md
+
+👉 역할:
+
+- 생각 dump
+- working memory 해방
+- ADHD 대응 핵심 구조
+
+---
+
+### 🔁 4. Flow State (`~/flow-state`)
+
+- 실행 상태
+- entry의 snapshot
+- (현재 일부 reserved 상태)
+
+---
+
+## 🧠 Flow Lifecycle
+
+
+flow-entry → flow-state → archive
+
+---
+
+## 🚀 Core Commands
+
+### 📝 memo
+
+
+memo 메시지
+m 메시지
+
+👉 생각 즉시 배출
+
+---
+
+### 🧠 organize
+
+
+o
+flow organize
+
+👉 memo 정리
+
+- 필요한 것 이동
+- 불필요한 것 삭제
+- **자동 삭제 없음**
+
+출력:
+
+
+⚠️ Remember to clean up memo manually
+
+---
+
+### 📍 next
+
+다음 시작 위치 저장
+
+---
+
+### 📴 quit
+
+세션 종료 시스템
+
+---
+
+## 🔁 Session Finalization Protocol
+
+Flow OS 종료는 단순 command가 아니라:
+
+👉 **State-driven protocol**
+
+---
+
+### 핵심 단계
+
+
+checkpoint → review → publish → shutdown
+
+---
+
+### 명령어
+
+
+q  → checkpoint + review + publish
+qq → checkpoint + publish
+
+---
+
+### 핵심 특징
+
+- review & publish **병렬 실행**
+- 상태 기반 종료 (조건 충족 시 종료)
+- 네트워크 실패 대응 가능
+
+---
+
+## 🔧 Git Workflow
+
+
+flow push
+flow pull
+
+---
+
+### 특징
+
+- git add / commit / push 자동화
+- CLI 통합
+- 반복 작업 제거
+
+---
+
+## 🚀 Startup Experience
+
+터미널 실행 시:
+
+### ✅ Git Sync
+
+
+✅ Sync skipped (sync'ed 78 min ago)
+
+---
+
+### ✅ Dashboard
+
+
+📌 Flow OS
+📝 TODO
+...
+🚀 Resume
+...
+my
+├── github
+├── projects
+...
+
+---
+
+👉 효과:
+
+- 작업 context 복원
+- 기억 없이 바로 시작
+
+---
+
+## 🎯 UX Philosophy
+
+- ✅ 기억하지 않는다
+- ✅ 생각은 즉시 기록한다
+- ✅ 흐름을 멈추지 않는다
+- ✅ 선택을 줄인다
+- ✅ 시스템이 뇌를 보완한다
+
+---
+
+## 💡 핵심 통찰
+
+Flow OS는:
+
+👉 **외부화된 인지 시스템 (Externalized Cognition System)**
+
+---
+
+## ✅ 한 줄 정의
+
+Flow OS =
+
+👉 **뇌의 약점을 보완하는 CLI 운영체제**
+

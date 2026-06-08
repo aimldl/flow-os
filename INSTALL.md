@@ -7,14 +7,20 @@
 [https://github.com/aimldl/flow-os](https://github.com/aimldl/flow-os)
 
 ```bash
-git clone https://github.com/aimldl/flow-os ~/flow-os
+git clone https://github.com/aimldl/flow-os ~/.flow-os
+
+혹은
+
+git clone git@github.com:aimldl/flow-os.git ~/.flow-os
 ```
+
+중요: .를 반드시 포함하세요. 
 
 ## 2. 시스템 셋업 (Setup)
 클론한 디렉토리로 이동하여 설치 스크립트를 실행합니다.
 
 ```bash
-cd ~/flow-os
+cd ~/.flow-os
 bash install.sh 
 # 또는 본인이 설정한 bootstrap 스크립트 실행
 ```
@@ -24,6 +30,6 @@ bash install.sh
 
 ```text
 ~/
-├── flow-os/       ← [현재 저장소] OS 소스 코드 및 설정 스크립트
+├── .flow-os/    ← [현재 저장소] OS 소스 코드 및 설정 스크립트
 └── my/          ← [작업 영역] 실제 프로젝트 코드가 위치할 곳
 ```

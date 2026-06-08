@@ -60,7 +60,7 @@ alias python='python3'
 alias q='quit'
 alias qq='quit_quick'
 
-alias resume='__edit ~/RESUME.md'
+alias resume='__edit ~/.flow/core/RESUME.md'
 
 alias s='source ~/.zshrc'
 alias search='grep -Rin '
@@ -68,7 +68,7 @@ alias search='grep -Rin '
 alias t='tree -d -L 1'
 alias t2='tree -d -L 2'
 alias tmp='cd ~/my/tmp'
-alias todo='__edit ~/TODO.md'
+alias todo='__edit ~/.flow/core/TODO.md'
 
 alias z='__edit ~/.zshrc'
 alias za='__edit ~/.zshalias'

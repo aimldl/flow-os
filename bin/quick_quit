@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# __resume_target logic
+target="$1"
+MY_ROOT="$HOME/my"
+if [ -z "$target" ]; then
+    if [[ "$PWD" == "$MY_ROOT"* ]]; then
+        target="${PWD#$MY_ROOT/}"
+    else
+        target="$PWD"
+    fi
+fi
+
+# gpush
+echo "📦 Running gpush..."
+bash "$HOME/my/github/push.sh"
+
+# __write_resume logic
+resume_file="$HOME/.flow/core/RESUME.md"
+{
+    echo "# RESUME"
+    echo ""
+    echo "$target"
+} > "$resume_file"
+echo "✅ RESUME updated: $target"
+
+echo "⚡ Quick exit"
+if [ "$(uname -s)" = "Darwin" ]; then
+    osascript -e 'tell application "Terminal" to close front window'
+else
+    exit
+fi
