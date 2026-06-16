@@ -14,11 +14,11 @@
 * ~/.flow-os (O)
 * ~/flow-os (X)
 
-### SSH 방식 (권장)
+**SSH 방식 (권장)**
 ```bash
 git clone git@github.com:aimldl/flow-os.git ~/.flow-os
 ```
-### HTTPS 방식
+**HTTPS 방식**
 ```bash
 git clone https://github.com ~/.flow-os
 ```
@@ -37,11 +37,11 @@ cd ~ && mv flow-os .flow-os
 ## 2. 시스템 셋업 (Setup)
 클론이 완료되면 해당 디렉토리로 이동하여 설치 스크립트를 실행합니다.
 
-### 1. 설치 디렉토리로 이동
+**1. 설치 디렉토리로 이동**
 ```bash
 cd ~/.flow-os
 ```
-### 2. 스크립트 실행 권한 부여 및 설치 진행
+**2. 스크립트 실행 권한 부여 및 설치 진행**
 ```bash
 chmod +x install.sh
 ./install.sh
@@ -53,7 +53,7 @@ chmod +x install.sh
 * 참고: Apple은 macOS Catalina(10.15) 버전부터 터미널의 기본 쉘을 Bash에서 Zsh로 변경했습니다. 
 
 ## 3. 디렉토리 구조 확인
-설치가 정상적으로 완료되면 홈 디렉토리(~) 하위에 다음과 같은 구조가 자동으로 구성됩니다.
+설치가 정상적으로 완료되면 홈 디렉토리 `~` 밑에 다음과 같은 구조가 자동으로 구성됩니다.
 
 ```bash
 ~/
