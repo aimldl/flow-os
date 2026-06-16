@@ -3,7 +3,7 @@ Flow OS는
 - 생각을 흘려보내고 실행만 남기는 시스템으로
 - "시작 → 유지 → 복귀 → 종료"를 하나의 흐름으로 만든다.
 
-```
+```bash
 my % flow
 Usage:
   flow memo <text>
@@ -68,14 +68,15 @@ secure-tasks/mistral-interview
 
 ### ✅ 5. Workspace 구조
 
-
+```bash
 my
-├── github
+├── craft
+├── forge
 ├── projects
 ├── secure-tasks
 ├── tasks
-└── tmp
-
+└── temp
+```
 ---
 
 👉 목적:
