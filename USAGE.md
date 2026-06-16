@@ -1,5 +1,20 @@
-# 💻 Flow OS Usage
-Flow OS는 "시작 → 유지 → 복귀 → 종료"를 하나의 흐름으로 만든다.
+# 💻 Flow OS > Usage
+Flow OS는 
+- **생각을 흘려보내고 실행만 남기는 시스템**으로
+- "시작 → 유지 → 복귀 → 종료"를 하나의 흐름으로 만든다.
+
+```
+my % flow
+Usage:
+  flow memo <text>
+  flow next [path]
+  flow organize [target]
+  flow push [message]
+  flow pull
+  flow quit
+  flow quick_quit
+my %
+```
 
 ## 🚀 전체 Workflow
 터미널 → Dashboard → go → 작업 → memo → organize → quit
@@ -178,9 +193,3 @@ quit
 - 바로 실행한다
 
 ---
-
-## ✅ 한 줄 정의
-
-Flow OS Usage =
-
-👉 **생각을 흘려보내고 실행만 남기는 시스템**
