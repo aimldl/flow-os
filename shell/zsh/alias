@@ -93,8 +93,11 @@ alias gsync='git-sync'
 
 alias z='exec zsh'
 alias za='__edit ~/.zshalias'
+alias zalias='__edit ~/.zshalias'
 alias zc='__edit ~/.zshconfig'
+alias zconfig='__edit ~/.zshconfig'
 alias zr='__edit ~/.zshrc'
+alias zrc='__edit ~/.zshrc'
 
 alias fa='__edit ~/.flow-os/shell/zsh/alias'
 alias falias='__edit ~/.flow-os/shell/zsh/alias'
