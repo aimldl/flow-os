@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+CONFIG="$HOME/.flow-os/bin/git-repositories.cfg"
+source "$CONFIG"
+
+TARGET=${1:-all}
+
+echo "🚀 Initializing repos..."
+
+mkdir -p "$TARGET_DIR"
+
+for repo in "${ALL_REPOS[@]}"; do
+    name=$(basename "$repo" .git)
+    dir="$TARGET_DIR/$name"
+
+    if [ -d "$dir/.git" ]; then
+        echo "⏭️  $name exists"
+    else
+        git clone "$repo" "$dir"
+        echo "✅ cloned $name"
+    fi
+done
+
+echo "✅ done"

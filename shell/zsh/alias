@@ -1,0 +1,164 @@
+# alias Z Shell Alias
+
+# ==================================================
+# 🚀 Flow OS
+# ==================================================
+
+# 🚀 Navigation Layer 
+#     ~/my
+#     ~/my/.flow
+#     ~/.flow-os
+
+alias my='cd ~/my'
+
+alias myt='cd ~/my/temp'
+alias mytmp='cd ~/my/temp'
+alias mytemp='cd ~/my/temp'
+alias temp='cd ~/my/temp'
+alias tmp='cd ~/my/temp'
+
+alias f='cd ~/my/.flow'
+alias flow='cd ~/my/.flow'
+alias myf='cd ~/my/.flow'
+alias myflow='cd ~/my/.flow'
+
+alias myflowhistory='cd ~/my/.flow/history'
+alias old='cd ~/my/.flow/history'
+alias myold='cd ~/my/.flow/history'
+
+alias fos='cd ~/.flow-os'
+alias flowos='cd ~/.flow-os'
+
+# 📝 Edit Files Layer
+#     ~/my/.flow
+#     ~/.flow-os
+
+alias e='__edit'
+alias edit='__edit'
+
+alias ememo='__edit ~/my/.flow/core/MEMO.md'
+alias editmemo='__edit ~/my/.flow/core/MEMO.md'
+alias memo='__edit ~/my/.flow/core/MEMO.md'
+
+alias eresume='__edit ~/my/.flow/core/RESUME.md'
+alias editresume='__edit ~/my/.flow/core/RESUME.md'
+alias resume='__edit ~/my/.flow/core/RESUME.md'
+
+alias etodo='__edit ~/my/.flow/core/TODO.md'
+alias edittodo='__edit ~/my/.flow/core/TODO.md'
+alias todo='__edit ~/my/.flow/core/TODO.md'
+
+alias eos='__edit ~/.flow-os/OS.md'
+alias editos='__edit ~/.flow-os/OS.md'
+alias os='__edit ~/.flow-os/OS.md'
+
+# 🚀 Core Commands Layer
+#     ~/.flow-os/bin
+
+# TODO: add more aliass that I end up typing in
+
+alias fcleanmemo='flow-clean-memo'  # TODO: clean-memo -> flow-clean-memo
+alias fcleantodo='flow-clean-todo'
+
+alias go='flow-go'
+alias fgo='flow-go'
+
+alias fmemo='flow-memo'
+
+alias qq='flow-quick-quit'
+alias qquick='flow-quick-quit'
+alias quickquit='flow-quick-quit'
+alias fquickquit='flow-quick-quit'
+alias quick-quit='flow-quick-quit'
+alias fquick-quit='flow-quick-quit'
+alias fq-quit='flow-quick-quit'
+alias fqq='flow-quick-quit'
+
+alias q='flow-quit'
+alias quit='flow-quit'
+alias fquit='flow-quit'
+
+# ==================================================
+# ⚙️ Git Automation Layer
+# ==================================================
+
+alias ginit='git-init'
+alias gpush='git-push'
+alias gsetup='git-setup'
+alias gstatus='git-status'
+alias gsync='git-sync'
+
+# 🚀 Shell Layer
+#     ~/.flow-os/shell/zsh
+
+alias z='exec zsh'
+alias za='__edit ~/.zshalias'
+alias zc='__edit ~/.zshconfig'
+alias zr='__edit ~/.zshrc'
+
+alias fa='__edit ~/.flow-os/shell/zsh/alias'
+alias falias='__edit ~/.flow-os/shell/zsh/alias'
+
+alias fc='__edit ~/.flow-os/shell/zsh/config'
+alias fconf='__edit ~/.flow-os/shell/zsh/config'
+alias fconfig='__edit ~/.flow-os/shell/zsh/config'
+
+alias ff='__edit ~/.flow-os/shell/zsh/functions'
+alias ffn='__edit ~/.flow-os/shell/zsh/functions'
+alias ffunctions='__edit ~/.flow-os/shell/zsh/functions'
+
+alias fr='__edit ~/.flow-os/shell/zsh/rc'
+alias frc='__edit ~/.flow-os/shell/zsh/rc'
+
+# ==================================================
+# 🛠 System Utilities
+# ==================================================
+
+alias a='alias'
+
+alias b='bash'
+
+alias c='cd'
+alias cc='cd ..'
+alias cl='clear'
+
+alias c4='chmod 400'
+alias cx='chmod +x'
+
+alias fn='find . -name'
+alias fd='find . -type d -name'
+#alias ff='find . -type f -name' # ff is used by Flow OS
+
+alias g='egrep -n'
+
+alias h='history'
+
+alias l='ls -GF'
+alias la='ls -A'
+alias last='ls -t | head -20'
+alias ll='ls -alF'
+alias ls='ls -G'
+
+alias p='echo ${PWD/#$HOME/~}'
+alias pwd='echo ${PWD/#$HOME/~}'
+
+alias s='source ~/.zshrc'
+
+alias search='grep -Rin '
+
+# ==================================================
+# 🧰 Installed Utilities
+# ==================================================
+
+alias n='nano'     # 맥북에선 --linenumbers / -l 미지원
+alias nl='nano +'
+
+alias python='python3'
+
+alias t='tree'
+alias td='tree -d'
+alias t1='tree -d -L 1'
+alias t2='tree -d -L 2'
+
+alias ty='open -a typora'
+alias typora='open -a typora'

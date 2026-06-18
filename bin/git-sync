@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+TARGET="$HOME/my/craft"
+
+echo "🔧 syncing repos..."
+
+for dir in "$TARGET"/*/; do
+  [ -d "$dir/.git" ] || continue
+
+  cd "$dir"
+  name=$(basename "$dir")
+
+  echo "⬇️ $name"
+  git pull
+done
+
+echo "✅ done"

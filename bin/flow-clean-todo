@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+source "$HOME/.flow-os/bin/lib-date"
+
+CORE="$HOME/my/.flow/core/TODO.md"
+HISTORY="$HOME/my/.flow/history"
+
+[ -f "$CORE" ] || exit
+
+DIR="$HISTORY/$(flow_history_dir)"
+mkdir -p "$DIR"
+
+# ✅ 완료된 항목 history 이동
+grep "^\[v\]" "$CORE" >> "$DIR/TODO.md" 2>/dev/null || true
+
+# ✅ 미완료만 + 빈 날짜 제거
+awk '
+BEGIN {
+    header=""
+    buffer=""
+    has_task=0
+}
+
+/^[0-9]{4}-[0-9]{2}-[0-9]{2}/ {
+    if (has_task) {
+        print header
+        printf "%s", buffer
+    }
+    header = $0
+    buffer = ""
+    has_task = 0
+    next
+}
+
+/^\[\]/ {
+    buffer = buffer $0 "\n"
+    has_task = 1
+    next
+}
+
+END {
+    if (has_task) {
+        print header
+        printf "%s", buffer
+    }
+}
+' "$CORE" > "$CORE.tmp"
+
+mv "$CORE.tmp" "$CORE"
+
+echo "✅ todo cleaned"

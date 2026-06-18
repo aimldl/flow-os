@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+source "$HOME/.flow-os/bin/lib-date"
+
+# ✅ target 계산 
+if [[ "$PWD" == "$HOME" ]]; then
+    target="~"
+elif [[ "$PWD" == "$HOME/"* ]]; then
+    target="${PWD#$HOME/}"
+else
+    target="${PWD}"
+fi
+
+echo "📦 sync repos"
+git-push >/dev/null 2>&1
+
+resume_file="$HOME/my/.flow/core/RESUME.md"
+mkdir -p "$(dirname "$resume_file")"
+
+{
+    echo "# RESUME"
+    echo "$target"
+} > "$resume_file"
+
+echo "✅ resume location saved: $target"
+echo "$(flow_quick_exit_message)"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    osascript -e 'tell application "Terminal" to close front window'
+else
+    exit
+fi

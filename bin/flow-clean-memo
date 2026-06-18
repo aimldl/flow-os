@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+source "$HOME/.flow-os/bin/lib-date"
+
+CORE="$HOME/my/.flow/core/MEMO.md"
+HISTORY="$HOME/my/.flow/history"
+
+[ -f "$CORE" ] || exit
+
+DIR="$HISTORY/$(flow_history_dir)"
+mkdir -p "$DIR"
+
+TARGET="$DIR/MEMO.md"
+
+# ✅ 기존 파일 있으면 append, 없으면 새로 생성
+if [ -f "$TARGET" ]; then
+  echo "" >> "$TARGET"
+  echo "## $(flow_today) ($(flow_weekday))" >> "$TARGET"
+  # 헤더(# MEMO) 제거하고 append
+  sed '1{/^# MEMO$/d;}' "$CORE" >> "$TARGET"
+  echo "" >> "$TARGET"
+else
+  cp "$CORE" "$TARGET"
+
+  # ✅ 복사된 경우도 대비
+  echo "" >> "$TARGET"
+fi
+
+# ✅ CORE 초기화
+echo "# MEMO" > "$CORE"
+
+# ✅ HOME 경로 제거해서 출력
+PRETTY_PATH="${TARGET/#$HOME\//}"
+
+echo "✅ memo archived to $PRETTY_PATH"

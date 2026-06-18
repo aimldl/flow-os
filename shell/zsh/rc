@@ -1,0 +1,56 @@
+# --------------------------------------------------
+# 🧠 Dashboard
+# --------------------------------------------------
+
+echo "Flow OS"
+echo "🎯 목표: 기억하지 않고, 망설이지 않고, 바로 실행하는 상태 만들기"
+echo "👉 목적: 기억 복원, 현재 상태 즉시 인지, 작업 진입 마찰 제거"
+
+
+[ -f "$HOME/OS.md" ] && grep -v "^#" "$HOME/OS.md" | grep -v "^$" | head -n 1
+
+echo ""
+echo "📝 TODO"
+[ -f "$HOME/my/.flow/core/TODO.md" ] && grep -v "^#" "$HOME/my/.flow/core/TODO.md" | grep -v "^$"
+
+echo ""
+echo "🚀 Run 'go' to resume at"
+[ -f "$HOME/my/.flow/core/RESUME.md" ] && grep -v "^#" "$HOME/my/.flow/core/RESUME.md" | grep -v "^$"
+
+echo ""
+
+# --------------------------------------------------
+# 🔥 Prompt
+# --------------------------------------------------
+
+setopt PROMPT_SUBST
+
+_set_prompt() {
+    local dir
+
+    if [[ "$PWD" == "$HOME" ]]; then
+        dir="~"
+    elif [[ "$PWD" == "$HOME/"* ]]; then
+        dir="${PWD#$HOME/}"
+    else
+        dir="$PWD"
+    fi
+
+    dir="${dir/#~\//}"
+
+    PROMPT="${dir} %% "
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook precmd _set_prompt
+_set_prompt
+
+# --------------------------------------------------
+# 📂 Workspace
+# --------------------------------------------------
+
+if [ "$PWD" = "$HOME" ]; then
+    cd ~/my
+    echo "my"
+    tree -d -L 1 ~/my --noreport | sed '1d'
+fi

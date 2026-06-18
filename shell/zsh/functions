@@ -1,0 +1,35 @@
+# --------------------------------------------------
+# 🛠 Editor
+# --------------------------------------------------
+
+__edit() {
+    if [ "$(uname -s)" = "Darwin" ]; then
+        open -a TextEdit "$@"
+    else
+        nano "$@"
+    fi
+}
+
+# --------------------------------------------------
+# 🚀 Go
+# --------------------------------------------------
+
+flow-go() {
+    RESUME="$HOME/my/.flow/core/RESUME.md"
+
+    target=$(grep -v '^#' "$RESUME" | grep -v '^$' | head -n 1)
+
+    [ -z "$target" ] && echo "❌ RESUME empty" && return
+
+    full_path="$HOME/$target"
+
+    if [ -d "$full_path" ]; then
+        cd "$full_path" || return
+    elif [ -f "$full_path" ]; then
+        cd "$(dirname "$full_path")" || return
+        echo "Opening $target ..."
+        __edit "$full_path"
+    else
+        echo "❌ $target not found"
+    fi
+}

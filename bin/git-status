@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TARGET="$HOME/my/craft"
+
+for dir in "$TARGET"/*/; do
+  [ -d "$dir/.git" ] || continue
+
+  cd "$dir"
+  name=$(basename "$dir")
+
+  if [[ $(git status --porcelain) ]]; then
+    echo "⚠️  $name dirty"
+  else
+    echo "✅ $name clean"
+  fi
+done

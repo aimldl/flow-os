@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+
+cmd="$1"
+shift || true
+
+show_usage() {
+  cat <<'USAGE'
+Usage:
+  flow memo <text>
+  flow clean-memo
+  flow clean-todo
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+  flow git-init [core|exp|all]
+  flow git-sync [core|exp|all]
+  flow git-status
+  flow git-push [core|exp|all]
+  flow git-setup
+  flow quit [path]
+  flow quick-quit [path]
+
+Merge commands
+  clean-memo -> flow clean-memo
+  clean-todo -> flow clean-todo
+
+duplicate standalone commands?
+  flow-sync 
+  git-init
+  git-push
+  git-status
+  git-sync
+  git-setup
+  quit
+  quick-quit
+}
+
+  flow memo <text>
+  flow clean-memo
+  flow clean-todo
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+  flow git-init [core|exp|all]
+  flow git-sync [core|exp|all]
+  flow git-status
+  flow git-push [core|exp|all]
+  flow git-setup
+  flow quit [path]
+  flow quick-quit [path]
+
+Merge commands
+  clean-memo -> flow clean-memo
+  clean-todo -> flow clean-todo
+
+duplicate standalone commands?
+  flow-sync 
+  git-init
+  git-push
+  git-status
+  git-sync
+  git-setup
+  quit
+  quick-quit
+
+
+show_usage_old() {
+  cat <<'USAGE'
+Usage:
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+
+USAGE
+}
+
+case "$cmd" in
+    memo)
+        exec memo "$@"
+        ;;
+    next)
+        file="$HOME/.flow/core/NEXT.md"
+        mkdir -p "$(dirname "$file")"
+
+        if [ -n "$1" ]; then
+            target="$1"
+        else
+            target="$PWD"
+        fi
+
+        # HOME 하위라면 상대경로 저장
+        if [[ "$target" == "$HOME" ]]; then
+            target="~"
+        elif [[ "$target" == "$HOME/"* ]]; then
+            target="${target#$HOME/}"
+        fi
+
+        {
+            echo "# NEXT"
+            echo ""
+            echo "$target"
+        } > "$file"
+
+        echo "✅ NEXT updated: $target"
+        ;;
+    organize)
+        target="${1:-memo}"
+
+        case "$target" in
+            memo)
+                file="$HOME/.flow/core/MEMO.md"
+                mkdir -p "$(dirname "$file")"
+                touch "$file"
+
+                if [ "$(uname -s)" = "Darwin" ]; then
+                    open -a TextEdit "$file"
+                else
+                    nano "$file"
+                fi
+                ;;
+            *)
+                echo "Unknown organize target: $target"
+                exit 1
+                ;;
+        esac
+        ;;
+    sync)
+        exec flow-sync "$@"
+        ;;
+    push)
+        cd "$HOME/.flow-os" || exit 1
+
+        git add .
+
+        if [ -n "$*" ]; then
+            msg="$*"
+        else
+            msg="update $(date '+%Y-%m-%d %H:%M')"
+        fi
+
+        git commit -m "$msg" 2>/dev/null || true
+        git push
+
+        echo "📦 Flow OS push..."
+        echo "✅ push completed"
+        ;;
+    pull)
+        cd "$HOME/.flow-os" || exit 1
+        git pull
+
+        echo "⬇️ Flow OS pull..."
+        echo "✅ up to date"
+        ;;
+    status)
+        exec git-status
+        ;;
+    git-init)
+        exec git-init "$@"
+        ;;
+    git-sync)
+        exec git-sync "$@"
+        ;;
+    git-status)
+        exec git-status "$@"
+        ;;
+    git-push)
+        exec git-push "$@"
+        ;;
+    git-setup)
+        exec git-setup "$@"
+        ;;
+    quit)
+        exec quit "$@"
+        ;;
+    quick-quit|quick_quit|quick)
+        exec quick-quit "$@"
+        ;;
+    ""|help|-h|--help)
+        show_usage
+        ;;
+    *)
+        echo "Unknown command: $cmd"
+        echo ""
+        show_usage
+        exit 1
+        ;;
+esac

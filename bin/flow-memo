@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+source "$HOME/.flow-os/bin/lib-date"
+
+FILE="$HOME/my/.flow/core/MEMO.md"
+mkdir -p "$(dirname "$FILE")"
+touch "$FILE"
+
+# ✅ 파일이 비어있으면 헤더 추가
+if [ ! -s "$FILE" ]; then
+  echo "# MEMO" >> "$FILE"
+fi
+
+if [ -z "$*" ]; then
+  read -r "msg?📝 "
+else
+  msg="$*"
+fi
+
+today=$(flow_today)
+time=$(flow_time)
+day=$(flow_weekday)
+
+if ! grep -q "^$today" "$FILE"; then
+    echo "" >> "$FILE"
+    echo "$today ($day)" >> "$FILE"
+fi
+
+echo "$time  $msg" >> "$FILE"
+
+echo "saved!"

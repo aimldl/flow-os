@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "This is a library"
+  exit 1
+fi
+
+flow_lang() {
+  echo "${FLOW_LANG:-ko}"
+}
+
+flow_weekday() {
+  local lang weekday
+  lang="$(flow_lang)"
+  weekday="$(date '+%u')"
+
+  case "$lang" in
+    ko) days=(월 화 수 목 금 토 일) ;;
+    en) days=(Mon Tue Wed Thu Fri Sat Sun) ;;
+    ja) days=(月 火 水 木 金 土 日) ;;
+    *)  days=(월 화 수 목 금 토 일) ;;
+  esac
+
+  echo "${days[$((weekday-1))]}"
+}
+
+flow_today() {
+  date '+%Y-%m-%d'
+}
+
+flow_time() {
+  date '+%H:%M'
+}
+
+flow_history_dir() {
+  echo "$(flow_today)-$(flow_weekday)"
+}
+
+flow_open_message() {
+  local lang
+  lang="$(flow_lang)"
+
+  case "$lang" in
+    ko) echo "👀 RESUME.md를 열어 검수합니다..." ;;
+    en) echo "👀 Opening RESUME.md for review..." ;;
+    ja) echo "👀 RESUME.md を開いて確認します..." ;;
+    *)  echo "👀 RESUME.md를 열어 검수합니다..." ;;
+  esac
+}
+
+flow_quit_prompt() {
+  local lang
+  lang="$(flow_lang)"
+
+  case "$lang" in
+    ko) echo "✅ RESUME 검수 후 종료하려면 Enter (취소: Ctrl+C): " ;;
+    en) echo "✅ Press Enter to quit after checking RESUME (Ctrl+C to cancel): " ;;
+    ja) echo "✅ RESUMEを確認したらEnterで終了 (キャンセル: Ctrl+C): " ;;
+    *)  echo "✅ RESUME 검수 후 종료하려면 Enter (취소: Ctrl+C): " ;;
+  esac
+}
+
+flow_quick_exit_message() {
+  local lang
+  lang="$(flow_lang)"
+
+  case "$lang" in
+    ko) echo "⚡ 빠른 종료" ;;
+    en) echo "⚡ Quick exit" ;;
+    ja) echo "⚡ クイック終了" ;;
+    *)  echo "⚡ 빠른 종료" ;;
+  esac
+}
