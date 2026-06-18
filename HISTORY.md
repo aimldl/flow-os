@@ -46,6 +46,42 @@ my %
 
 ## History
 
+### secure-tasks → vault & tasks → jobs로 디렉토리명 변경
+
+알파벳 순서 + 의미 + 흐름 전부 해결됨
+
+```bash
+.
+├── craft
+├── forge
+├── projects
+├── tasks
+├── temp
+└── vault
+```
+에서
+```bash
+.
+├── craft
+├── forge
+├── jobs
+├── projects
+├── temp
+└── vault
+```
+
+✨ 의미 흐름 (중요)
+craft    → 이미 익숙한 기술 유지
+forge    → 배우고 성장
+jobs     → 실험/작업 실행
+projects → job보다 큰 project
+temp     → 임시
+vault    → private
+
+👉 이건 그냥 폴더가 아니라:
+
+✅ “인지 상태 + 작업 단계 흐름”
+
 ### 핵심 파일 위치 변경
 
 `flow-entry/temporary/`에서 `~/my/.flow/core/`로 디렉토리 구조를 변경
