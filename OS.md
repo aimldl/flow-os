@@ -1,4 +1,4 @@
-# 💻 Flow OS > Usage
+# 💻 Flow OS > Workflow
 
 ## 🎯 목표
 📌 목표: 기억하지 않고, 망설이지 않고, 바로 실행하는 상태 만들기
@@ -12,7 +12,9 @@ Flow OS는
 
 터미널 시작 → Dashboard → go → 작업1 → 작업2 → 작업3 → clean → quit
 
-## 🚀 일반적인 작업 흐름
+
+
+## 🚀 기본 작업 흐름
 ```text
 터미널 시작 → Dashboard → go → 작업1 ... 작업2 ... 작업3 ... → clean → quit
                                ├→ memo _↗ ├→ memo _↗ ├→ memo _↗
@@ -27,6 +29,206 @@ Flow OS는
 - ✅ 잡생각 = 무조건 memo에 기록
 - ✅ 종료 전 반드시 정리 (clean)
 - ✅ 항상 이어서 시작할 수 있는 상태를 유지
+ 
+# 💻 Flow OS > Usage
+
+Flow OS 환경에서 매일 어떻게 작업을 시작하고 종료하는지, 그 흐름을 설명합니다.
+
+
+## 🚀 현재 구조
+
+clean  → 정리
+go     → 실행 진입 (RESUME → NEXT)
+memo   → 생각 배출
+next   → 의도 설정
+todo   → 상태 저장
+quit   → 종료
+
+```text
+터미널 시작 → Dashboard → go → 작업1 ... 작업2 ... 작업3 ... → clean → quit
+                               ├→ memo _↗ ├→ memo _↗ ├→ memo _↗
+                               └→ todo _↗ └→ todo _↗ └→ todo _↗ 
+```
+
+## 🧭 1. 터미널 시작 → Dashboard 
+
+### Git Sync
+✅ Sync skipped (sync'ed N min ago)
+
+
+### My Workspace 구조
+
+```bash
+my
+├── craft
+├── forge
+├── projects
+├── secure-tasks
+├── tasks
+└── temp
+```
+
+## 🚀 2. 작업 재개 명령어
+- `go`: `RESUME.md`에 기록된 1번째 항목의 디렉토리로 즉시 이동/실행합니다.
+- `go2`, `go3`: 각각 2번째, 3번째 항목으로 이동합니다.
+
+```bash
+my % go
+```
+👉 즉시 작업 디렉토리 이동
+
+
+## 🧠 3. 작업 수행
+
+- 현재 작업에 집중
+
+## ⚡ 4. '잡'생각 발생 → memo
+
+```bash
+fmemo 아이디어
+```
+
+⚠️ [중요] memo는
+
+-  ❌ '잡'생각 제거 도구로 정리하는 곳이 아니다
+- ✅ '잡'생각의 외부 저장으로 버리는 곳이다. 
+
+
+## ⚡ 5. '잡'생각에 빠짐 → todo
+
+### 📴 다시 돌아갈 기회!
+- 원치 않게 DMN 상태로 이동해서 '잡'생각에 빠졌더라도 주의 전환의 기회는 반드시 발생한다
+  - 신체적 요구(예: 화장실, 배고픔)는 자연스럽게 발생하고, 
+  - 외부 자극(예: 전화, 타인의 개입)은 예측없이 발생할 수 있다
+
+- 이때 todo를 기준으로 현재 상태를 빠르게 복원하고, Flow OS의 메인 스트림으로 재진입하는 것이 중요하다  
+
+
+## 🚀 6. [추천] 작업 종료 전 정리: clean
+
+### 내부 동작
+
+- memo.md 열림
+- 필요한 것 이동
+- 필요 없는 것 삭제
+- ⚠️ 메모는 반드시 수동으로 빠르게 정리할 것
+
+
+세 가지 작업 종료 방식을 비교해보자.
+
+```text
+터미널 시작 → 작업1 → 작업2 → 작업3
+
+터미널 시작 → Dashboard → go → 작업1 → 작업2 → 작업3 → quit
+
+터미널 시작 → Dashboard → go → 작업1 → 작업2 → 작업3 → clean → quit
+```
+
+- 일을 어떻게 마무리하느냐에 따라 다음 시작의 난이도는 크게 달라진다.
+- 이를 알면서도 우리는 정리의 번거로움 때문에 clean 단계를 종종 생략한다.
+
+## 🚀 7. 작업 종료: quit 또는 quick-quick
+
+종료 명령어
+- q (표준 종료) 
+- qq (빠른 종료)
+
+### 내부 동작: quit
+  - publish (변경 사항 git push)
+  - checkpoint (RESUME.md에 상태 기록)
+  - review (선택적으로 검수)
+  - 터미널 종료
+
+### 내부 동작: quick-quit
+  - checkpoint (상태 기록) 후 즉시 종료
+  - review (검수 과정) 생략
+
+---
+# 💻 Flow OS > Deep-dive
+
+## Flow OS 설계 관련
+```bash
+~ % tree .flow-os/bin 
+.flow-os/bin
+├── flow-clean-memo
+├── flow-clean-todo
+├── flow-go
+├── flow-memo <text>
+├── flow-quick-quit
+├── flow-quit
+├── flow.old
+├── git-init
+├── git-push
+├── git-repositories.cfg
+├── git-setup
+├── git-status
+├── git-sync
+└── lib-date
+
+1 directory, 14 files
+~ % 
+```
+
+```bash
+~ % tree .flow-os
+.flow-os
+├── bin
+│   ├── ...
+│   ...
+│
+├── FUTURE-WORK.md
+├── INSTALL.md
+├── install.sh
+├── OS.md
+│    ...
+├── README.md
+└── shell
+    ├── alias
+    ├── config
+    ├── functions
+    └── rc
+```
+- OS.md: Flow OS가 어떻게 동작하는지 정의하는 문서입니다
+
+
+## 내 작업 공간 구조 (전체)
+
+⚠️ .flow는 my 아래 포함됨
+
+```bash
+my
+├── .flow
+├── craft
+├── forge
+├── projects
+├── secure-tasks
+├── tasks
+└── temp
+```
+
+## 핵심 파일 안내 (Core Files)
+시스템의 상태를 관리하는 파일들은 모두 ~my/.flow/core/에 위치합니다.
+- RESUME.md: 어디에서 재시작할지 기록하는 파일입니다. **가장 중요한 역할**을 담당합니다.
+- TODO.md: 해야 할 작업 목록입니다. 한 줄에 하나의 작업을 실행 가능한 항목으로 간략히 기록합니다.
+
+
+```bash
+~ % tree my/.flow
+my/.flow
+├── core
+│   ├── MEMO.md
+│   ├── NEXT.md
+│   ├── RESUME.md
+│   └── TODO.md
+└── history
+    ├── 2026-06-17-수
+    │   ├── MEMO.md
+    │   └── TODO.md
+    ├── 2026-06-18-목
+    │   ├── MEMO.md
+       ...
+```
+---
 
 # 💻 Flow OS > Design
 
@@ -87,6 +289,10 @@ Flow OS는
 
 내부 사고(DMN)를 외부로 빠르게 배출하는 출구  
 
+### 메모 명령어
+- `memo [메시지]`: `flow-entry/temporary/memo.md`에 timestamp와 함께 메모를 저장합니다. 인자 없이 실행하면 대화식으로 입력받습니다.
+
+
 #### todo
 - 현재 위치와 목표를 명확히 보여주는 표지판
 - 내가 어디에 있는지 인지하고, 다시 돌아갈 경로를 최소한의 노력으로 확보한다.
@@ -110,167 +316,3 @@ Flow OS는
   - → 작업 중 집중 유지가 더 많은 인지적 비용을 요구할 수 있다 
 - Flow OS는 이러한 인지적 비용을 줄이고자 하는 바람에서 출발했다.
 - ※ Disclaimer: 성인 ADHD를 기준으로 한 인지 흐름 모델이며, 아동 ADHD의 발달적 특성은 포함하지 않는다  
- 
-# 💻 Flow OS > Deep-dive
-
-## 🚀 현재 구조
-
-clean  → 정리
-go     → 실행 진입 (RESUME → NEXT)
-memo   → 생각 배출
-next   → 의도 설정
-todo   → 상태 저장
-quit   → 종료
-
-```text
-터미널 시작 → Dashboard → go → 작업1 ... 작업2 ... 작업3 ... → clean → quit
-                               ├→ memo _↗ ├→ memo _↗ ├→ memo _↗
-                               └→ todo _↗ └→ todo _↗ └→ todo _↗ 
-```
-
-## 🧭 1. 터미널 시작 → Dashboard 
-
-### Git Sync
-✅ Sync skipped (sync'ed N min ago)
-
-
-### My Workspace 구조
-
-```bash
-my
-├── craft
-├── forge
-├── projects
-├── secure-tasks
-├── tasks
-└── temp
-```
-
-## 🚀 2. 작업 (재개)
-
-```bash
-my % go
-```
-👉 즉시 작업 디렉토리 이동
-
-
-## 🧠 3. 작업 수행
-
-- 현재 작업에 집중
-
-## ⚡ 4. '잡'생각 발생 → memo
-
-```bash
-fmemo 아이디어
-```
-
-⚠️ [중요] memo는
-
--  ❌ '잡'생각 제거 도구로 정리하는 곳이 아니다
-- ✅ '잡'생각의 외부 저장으로 버리는 곳이다. 
-
-
-## ⚡ 5. '잡'생각에 빠짐 → todo
-
-### 📴 다시 돌아갈 기회!
-- 원치 않게 DMN 상태로 이동해서 '잡'생각에 빠졌더라도 주의 전환의 기회는 반드시 발생한다
-  - 신체적 요구(예: 화장실, 배고픔)는 자연스럽게 발생하고, 
-  - 외부 자극(예: 전화, 타인의 개입)은 예측없이 발생할 수 있다
-
-- 이때 todo를 기준으로 현재 상태를 빠르게 복원하고, Flow OS의 메인 스트림으로 재진입하는 것이 중요하다  
-
-
-## 🚀 6. [추천] 작업 종료 전 정리: clean
-
-### 내부 동작
-
-- memo.md 열림
-- 필요한 것 이동
-- 필요 없는 것 삭제
-- ⚠️ 메모는 반드시 수동으로 빠르게 정리할 것
-
-
-세 가지 작업 종료 방식을 비교해보자.
-
-```text
-터미널 시작 → 작업1 → 작업2 → 작업3
-
-터미널 시작 → Dashboard → go → 작업1 → 작업2 → 작업3 → quit
-
-터미널 시작 → Dashboard → go → 작업1 → 작업2 → 작업3 → clean → quit
-```
-
-- 일을 어떻게 마무리하느냐에 따라 다음 시작의 난이도는 크게 달라진다.
-- 이를 알면서도 우리는 정리의 번거로움 때문에 clean 단계를 종종 생략한다.
-
-## 🚀 7. 종료: quit
-
-q 또는 qq
-
-### 내부 동작: quit
-
-- checkpoint (RESUME 기록)
-- review (선택적)
-- publish (git push)
-- 종료
-
----
-# 💻 Flow OS > Design > Deep-dive
-
-## Flow OS 설계 관련
-```bash
-~ % tree .flow-os/bin 
-.flow-os/bin
-├── flow-clean-memo
-├── flow-clean-todo
-├── flow-go
-├── flow-memo <text>
-├── flow-quick-quit
-├── flow-quit
-├── flow.old
-├── git-init
-├── git-push
-├── git-repositories.cfg
-├── git-setup
-├── git-status
-├── git-sync
-└── lib-date
-
-1 directory, 14 files
-~ % 
-```
-
-## 내 작업 공간 구조 (전체)
-
-⚠️ .flow는 my 아래 포함됨
-
-```bash
-my
-├── .flow
-├── craft
-├── forge
-├── projects
-├── secure-tasks
-├── tasks
-└── temp
-```
-
-## my/.flow 구조
-
-
-```bash
-~ % tree my/.flow
-my/.flow
-├── core
-│   ├── MEMO.md
-│   ├── NEXT.md
-│   ├── RESUME.md
-│   └── TODO.md
-└── history
-    ├── 2026-06-17-수
-    │   ├── MEMO.md
-    │   └── TODO.md
-    ├── 2026-06-18-목
-    │   ├── MEMO.md
-       ...
-```
