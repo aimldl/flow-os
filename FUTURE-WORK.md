@@ -4,6 +4,10 @@
 
 flow-clean-memo 실행 시 이상한거 확인
 
+
+## Refactor?
+- go2, `go3`: 각각 2번째, 3번째 항목으로 이동합니다.
+
 ## Refactoring > 삭제
 
 .flow-os/bin/flow.old
