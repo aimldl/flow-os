@@ -59,16 +59,6 @@ Merge commands
   clean-memo -> flow clean-memo
   clean-todo -> flow clean-todo
 
-duplicate standalone commands?
-  flow-sync 
-  git-init
-  git-push
-  git-status
-  git-sync
-  git-setup
-  quit
-  quick-quit
-
 
 show_usage_old() {
   cat <<'USAGE'
