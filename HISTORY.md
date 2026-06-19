@@ -46,7 +46,48 @@ my %
 
 ## History
 
-### secure-tasks → vault & tasks → jobs로 디렉토리명 변경
+### 2026-06-19 (금)
+
+[v].flow-os/bin/flow 명령어 완전 삭제
+
+현 상태
+
+```bash
+.flow-os
+├── flow-clean-memo
+├── flow-clean-todo
+├── flow-go
+├── flow-memo
+├── flow-quick-quit
+├── flow-quit
+├── git-init
+├── git-push
+├── git-repositories.cfg
+├── git-setup
+├── git-status
+├── git-sync
+└── lib-date
+
+1 directory, 13 files
+```
+
+[] `day=$(flow_weekday)`와 `lib-date` 중복 제거
+- lib-today
+- lib-time
+- lib-day
+
+flow-memo 등에 공통 적용된 부분을 lib-*로 추출 후 refactor
+```
+today=$(flow_today)
+time=$(flow_time)
+day=$(flow_weekday)
+```
+
+
+
+### 2026-06-18 (목)
+
+#### secure-tasks → vault & tasks → jobs로 디렉토리명 변경
 
 알파벳 순서 + 의미 + 흐름 전부 해결됨
 
@@ -95,3 +136,142 @@ vault    → private
 
 주요 변경 사항
 `flow-entry/temporary/memo.md`에서 `~/my/.flow/core/MEMO.md`로 변경
+
+
+### 2026-06-18 (목)
+
+어제 flow 명령어와 stand-alone commands를 merge했지만...
+- alias flow (.flow로 cd하는 alias)와 flow 명령어가 충돌함에 따라, flow 명령어의 사용을 폐지.
+- 대신 flow 명령어는 shell/zsh/alias에서 입력 가능한 다양한 입력 명령어를 지정-> 오히려 이게 나은 듯?
+
+#!/usr/bin/env bash
+
+cmd="$1"
+shift || true
+
+show_usage() {
+  cat <<'USAGE'
+Usage:
+  flow memo <text>
+  flow clean-memo
+  flow clean-todo
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+  flow git-init [core|exp|all]
+  flow git-sync [core|exp|all]
+  flow git-status
+  flow git-push [core|exp|all]
+  flow git-setup
+  flow quit [path]
+  flow quick-quit [path]
+
+Merge commands
+  clean-memo -> flow clean-memo
+  clean-todo -> flow clean-todo
+
+
+}
+
+### 2026-06-17 (수)
+
+리눅스 명령어 모음이였던 flow 명령어 
+
+Old Usage:
+```
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+```
+
+예:
+    pull)
+        cd "$HOME/.flow-os" || exit 1
+        git pull
+          
+        echo "⬇ ️ Flow OS pull..."
+        echo "✅ up to date"
+        ;;
+
+에 포함되는 명령어 숫자가 늘어남.
+
+bin 폴더에 추가했던 별도 명령어를 
+
+  clean-memo
+  clean-todo
+
+flow 명령어로 refactor하고 
+
+  clean-memo -> flow clean-memo
+  clean-todo -> flow clean-todo
+
+
+flow 명령어가 wrapper지원
+
+예: 
+    status)
+        exec git-status
+        ;;
+    git-init)
+        exec git-init "$@"
+        ;;
+    git-sync)
+        exec git-sync "$@"
+        ;;
+    git-status)
+        exec git-status "$@"
+        ;;
+    git-push)
+        exec git-push "$@"
+        ;;
+    git-setup)
+        exec git-setup "$@"
+        ;;
+    quit)
+        exec quit "$@"
+        ;;
+    quick-quit|quick_quit|quick)
+        exec quick-quit "$@"
+        ;;
+    ""|help|-h|--help)
+        show_usage
+        ;;
+    *)
+
+
+duplicate standalone commands을 
+  flow-sync 
+  git-init
+  git-push
+  git-status
+  git-sync
+  git-setup
+  quit
+  quick-quit
+
+flow 명령어로 merge
+
+  flow memo <text>
+  flow clean-memo
+  flow clean-todo
+  flow next [path]
+  flow organize [memo]
+  flow sync
+  flow push [message]
+  flow pull
+  flow status
+  flow git-init [core|exp|all]
+  flow git-sync [core|exp|all]
+  flow git-status
+  flow git-push [core|exp|all]
+  flow git-setup
+  flow quit [path]
+  flow quick-quit [path]
+
+
