@@ -25,7 +25,7 @@ Two-layer design with strict separation:
 ### Core state files (in ~/my/.flow/core/, not this repo)
 
 - `RESUME.md` — The most important file. Records where to resume work (path).
-- `TODO.md` — Task list with `[]`/`[v]` markers
+- `TODO.md` — Task list with `[]`/`[v]` markers (Recommend only top 3 task)
 - `MEMO.md` — Quick-capture for stray thoughts (timestamped)
 - `NEXT.md` — Intention setting
 
