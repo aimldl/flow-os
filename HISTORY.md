@@ -1,5 +1,10 @@
 # HISTORY.md
 
+## 2026-06-25-목
+- [몇 일 전] Gemini CLI에 Pro Plan임에도 알 수 없는 quota issue로 고치는데 시간/노력이 드는 상태
+- Claude Code 도입!
+
+
 ## TODOs
 ### 버그 수정
 
