@@ -4,35 +4,49 @@
 - [몇 일 전] Gemini CLI에 Pro Plan임에도 알 수 없는 quota issue로 고치는데 시간/노력이 드는 상태
 - Claude Code 도입!
 
-
 ## TODOs
-### 버그 수정
-
-flow-clean-memo 실행 시 이상한거 확인
-
 
 ### Refactor?
 - go2, `go3`: 각각 2번째, 3번째 항목으로 이동합니다.
 
-### Refactoring > 삭제
+### [v] Refactor > git 관련
 
-.flow-os/bin/flow.old
-  -> flow next [path]
-  -> organize [target] < clean
-  -> flow pull < git-sync와 다른가?
-  -> usage 명령어 대신 OS.md 사용중 -> usage 만들어?
+```bash
+~/my/temp
+├── git
+│   ├── batch_git_clone
+│   ├── batch_git_pull
+│   ├── batch_git_push
+│   ├── github_user_id.cfg
+│   ├── smart-git-syn.sh
+│   ├── target_repositories.cfg
+│   └── token
+└── old-flow-commands.md
+```
 
-.flow-os/template
-  -> install.sh에서 template의 파일 없이 가능하도록
+새로 생성 (2개):
+- bin/git-target-repos.cfg — path|url 형식, PRIVATE_REPOS(.flow), PUBLIC_REPOS(빈 배열)
+- bin/lib-git — git_is_online, git_should_sync, git_mark_synced, git_repo_path, git_repo_url, git_all_repo_dirs
 
-.flow-os
-└── template
-    ├── RESUME.template.md
-    └── TODO.template.md
+수정 (8개):
+- git-push, git-pull, git-status, git-init, git-setup — config 기반 순회로 전환
+- flow-quit, flow-quick-quit — 네트워크 체크 추가 (오프라인 시 push 건너뜀)
+- shell/zsh/rc — Dashboard 앞에 스마트 sync 블록 추가 (pull + 간격 제한)
 
-### Refactoring > quit 관련 확인
+Deprecate: git-repositories.cfg
+문서 반영: CLAUDE.md 업데이트
 
-my % quit
+
+### 버그 수정
+
+[v] 대문자 파일명을 모두 소문자로 변경.
+- 이유: shift key를 한번 더 눌러서 friction이 생김
+- 예: MEMO.md -> memo.md
+
+[v] flow-clean-memo 실행 시 이상한거 확인
+
+### Refactoring > quit과 quick-quit 관련
+[v] my % quit
 zsh: command not found: quit
 my % fquit
 📦 sync repos
@@ -41,17 +55,32 @@ my % fquit
 ✅ RESUME 검수 후 종료하려면 Enter (취소: Ctrl+C):
 
 
-### Refactoring > quick-quit 관련 확인
-
-my % qq
+[v] my % qq
 📦 sync repos
 ✅ resume location saved: my
 ⚡ 빠른 종료
 my %
 
+### Refactoring > 삭제
+
+[v] .flow-os/bin/flow.old
+  -> flow next [path]
+  -> organize [target] < clean
+  -> flow pull < git-sync와 다른가?
+  -> usage 명령어 대신 OS.md 사용중 -> usage 만들어?
+
+[v] .flow-os/template
+  -> install.sh에서 template의 파일 없이 가능하도록
+```bash
+.flow-os
+└── template
+    ├── RESUME.template.md
+    └── TODO.template.md
+```
+
 ## History
 
-### 2026-06-19 (금)
+### 2026-06-19-금 [v] 06-25-목
 
 [v].flow-os/bin/flow 명령어 완전 삭제
 
@@ -76,7 +105,7 @@ my %
 1 directory, 13 files
 ```
 
-[] `day=$(flow_weekday)`와 `lib-date` 중복 제거
+[v] `day=$(flow_weekday)`와 `lib-date` 중복 제거
 - lib-today
 - lib-time
 - lib-day
@@ -88,9 +117,7 @@ time=$(flow_time)
 day=$(flow_weekday)
 ```
 
-
-
-### 2026-06-18 (목)
+### 2026-06-18-목
 
 #### secure-tasks → vault & tasks → jobs로 디렉토리명 변경
 
@@ -125,6 +152,10 @@ temp     → 임시
 vault    → private
 ```
 이건 그냥 폴더가 아니라 → “인지 상태 + 작업 단계 흐름”
+
+->
+```bash
+
 
 ### 핵심 파일 위치 변경
 
