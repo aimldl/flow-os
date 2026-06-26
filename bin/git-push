@@ -15,7 +15,7 @@ while IFS= read -r dir; do
   [ -d "$dir/.git" ] || continue
   cd "$dir" || continue
 
-  name=$(basename "$dir")
+  name=$(basename "$(realpath "$dir")")
   status=$(git status --porcelain)
 
   if [ -n "$status" ]; then
