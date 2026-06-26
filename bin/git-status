@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
+# git-status — Show dirty/clean status of all config-defined git repos
+# Alias: gstatus
 
-TARGET="$HOME/my/craft"
+# git-status — 설정된 모든 git repo의 dirty/clean 상태 표시
+# 별칭: gstatus
 
-for dir in "$TARGET"/*/; do
+source "$HOME/.flow-os/bin/lib-git"
+
+while IFS= read -r dir; do
   [ -d "$dir/.git" ] || continue
-
   cd "$dir"
   name=$(basename "$dir")
 
@@ -13,4 +17,4 @@ for dir in "$TARGET"/*/; do
   else
     echo "✅ $name clean"
   fi
-done
+done < <(git_all_repo_dirs)

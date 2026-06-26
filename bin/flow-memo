@@ -1,30 +1,99 @@
 #!/usr/bin/env bash
-source "$HOME/.flow-os/bin/lib-date"
+# flow-memo — Capture a thought to memo.md with timestamp
+# Usage: flow-memo <text>  or  flow-memo (interactive multiline input)
 
-FILE="$HOME/my/.flow/core/MEMO.md"
+# flow-memo — '잡'생각을 memo.md에 타임스탬프와 함께 기록
+# 사용법: flow-memo <텍스트>  또는  flow-memo (멀티라인 입력)
+
+source "$HOME/.flow-os/bin/lib-path"
+
+FILE="$FLOW_CORE/memo.md"
 mkdir -p "$(dirname "$FILE")"
 touch "$FILE"
 
-# ✅ 파일이 비어있으면 헤더 추가
+# Add header if file is empty
+# 파일이 비어있으면 헤더 추가
 if [ ! -s "$FILE" ]; then
-  echo "# MEMO" >> "$FILE"
+  echo "# memo" >> "$FILE"
 fi
 
-if [ -z "$*" ]; then
-  read -r "msg?📝 "
-else
+# Handle Ctrl+C as cancel instead of abrupt exit
+# Ctrl+C를 취소 동작으로 처리
+trap 'echo ""; echo "❌ canceled"; exit 1' INT
+
+# Use arguments if provided, otherwise read multiline input
+# 인자가 있으면 사용, 없으면 멀티라인 입력
+if [ "$#" -gt 0 ]; then
   msg="$*"
+else
+  echo "📝 enter memo (Ctrl+D to save, Ctrl+C to cancel)"
+  msg="$(cat)"
 fi
 
+# Skip if empty
+# 입력이 없으면 저장하지 않음
+if [ -z "$msg" ]; then
+  echo "⚠️ empty memo skipped"
+  exit 0
+fi
+
+# Determine view mode
+# 출력 모드 결정
+context=""
+case "${FLOW_MEMO_VIEW:-off}" in
+  layer)
+    if [[ "$PWD" == "$HOME/.flow-os"* ]]; then
+      context=".flow-os"
+    elif [[ "$PWD" == "$HOME/my/.flow"* ]]; then
+      context=".flow"
+    elif [[ "$PWD" == "$HOME/my/"* ]]; then
+      sub="${PWD#$HOME/my/}"
+      sub="${sub%%/*}"
+      context="my/$sub"
+    elif [[ "$PWD" == "$HOME/my" ]]; then
+      context="my"
+    fi
+    ;;
+  full_path)
+    context="$(flow_relative_path)"
+    ;;
+esac
+
+# Compute max width dynamically (based on current context + known longest)
+# 최대 길이 계산 (동적 계산)
+base_max="my/projects"
+max_width=${#base_max}
+
+if [ ${#context} -gt $max_width ]; then
+  max_width=${#context}
+fi
+
+# Get localized date/time
+# 날짜 및 시간 정보 생성
 today=$(flow_today)
 time=$(flow_time)
 day=$(flow_weekday)
 
+# Add date section if not exists
+# 해당 날짜 섹션이 없으면 추가
 if ! grep -q "^$today" "$FILE"; then
-    echo "" >> "$FILE"
-    echo "$today ($day)" >> "$FILE"
+  echo "$today ($day)" >> "$FILE"
 fi
 
-echo "$time  $msg" >> "$FILE"
+# Ensure newline before appending
+# append 전에 항상 줄바꿈 확보
+echo "" >> "$FILE"
 
-echo "saved!"
+# Append memo content
+# 메모 내용 추가 (멀티라인 대응)
+{
+  while IFS= read -r line; do
+    if [ -n "$context" ]; then
+      printf "%s  %-*s | %s\n" "$time" "$max_width" "$context" "$line"
+    else
+      echo "$time  $line"
+    fi
+  done <<< "$msg"
+} >> "$FILE"
+
+echo "✅ saved!"

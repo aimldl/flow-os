@@ -29,6 +29,9 @@ alias myold='cd ~/my/.flow/history'
 alias fos='cd ~/.flow-os'
 alias flowos='cd ~/.flow-os'
 
+alias docs='cd ~/.flow-os/docs'
+alias doc='cd ~/.flow-os/docs'
+
 # 📝 Edit Files Layer
 #     ~/my/.flow
 #     ~/.flow-os
@@ -36,29 +39,33 @@ alias flowos='cd ~/.flow-os'
 alias e='__edit'
 alias edit='__edit'
 
-alias ememo='__edit ~/my/.flow/core/MEMO.md'
-alias editmemo='__edit ~/my/.flow/core/MEMO.md'
-alias memo='__edit ~/my/.flow/core/MEMO.md'
+alias ememo='__edit ~/my/.flow/core/memo.md'
+alias editmemo='__edit ~/my/.flow/core/memo.md'
+alias memo='__edit ~/my/.flow/core/memo.md'
 
-alias eresume='__edit ~/my/.flow/core/RESUME.md'
-alias editresume='__edit ~/my/.flow/core/RESUME.md'
-alias resume='__edit ~/my/.flow/core/RESUME.md'
+alias eresume='__edit ~/my/.flow/core/resume.md'
+alias editresume='__edit ~/my/.flow/core/resume.md'
+alias resume='__edit ~/my/.flow/core/resume.md'
 
-alias etodo='__edit ~/my/.flow/core/TODO.md'
-alias edittodo='__edit ~/my/.flow/core/TODO.md'
-alias todo='__edit ~/my/.flow/core/TODO.md'
+alias etodo='__edit ~/my/.flow/core/todo.md'
+alias edittodo='__edit ~/my/.flow/core/todo.md'
+alias todo='__edit ~/my/.flow/core/todo.md'
 
-alias eos='__edit ~/.flow-os/OS.md'
-alias editos='__edit ~/.flow-os/OS.md'
-alias os='__edit ~/.flow-os/OS.md'
+alias fcommand='__edit ~/.flow-os/docs/commands.md'
+alias fcommands='__edit ~/.flow-os/docs/commands.md'
+alias fcmd='__edit ~/.flow-os/docs/commands.md'
+alias cmd='__edit ~/.flow-os/docs/commands.md'
 
 # 🚀 Core Commands Layer
 #     ~/.flow-os/bin
 
-# TODO: add more aliass that I end up typing in
+alias fcleanmemo='flow-clean-memo'
+alias cleanmemo='flow-clean-memo'
+alias clean-memo='flow-clean-memo'
 
-alias fcleanmemo='flow-clean-memo'  # TODO: clean-memo -> flow-clean-memo
 alias fcleantodo='flow-clean-todo'
+alias cleantodo='flow-clean-todo'
+alias clean-todo='flow-clean-todo'
 
 alias go='flow-go'
 alias fgo='flow-go'
@@ -86,7 +93,7 @@ alias ginit='git-init'
 alias gpush='git-push'
 alias gsetup='git-setup'
 alias gstatus='git-status'
-alias gsync='git-sync'
+alias gpull='git-pull'
 
 # 🚀 Shell Layer
 #     ~/.flow-os/shell/zsh

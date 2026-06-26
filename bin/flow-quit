@@ -1,45 +1,37 @@
 #!/usr/bin/env bash
+# flow-quit — Standard quit: git push → save RESUME → review → close terminal
+# Alias: q, quit, fquit
 
-source "$HOME/.flow-os/bin/lib-date"
+# flow-quit — 표준 종료: git push → RESUME 저장 → 검수 → 터미널 닫기
+# 별칭: q, quit, fquit
 
-MY_ROOT="$HOME/my"
+source "$HOME/.flow-os/bin/lib-resume"
+source "$HOME/.flow-os/bin/lib-git"
 
-# ✅ target 계산
-if [[ "$PWD" == "$HOME" ]]; then
-    target="~"
-elif [[ "$PWD" == "$HOME/"* ]]; then
-    target="${PWD#$HOME/}"
+target=$(flow_relative_path)
+
+# Auto-commit & push all repos (skip if offline)
+# 모든 repo를 자동 커밋 & push (오프라인 시 건너뜀)
+if git_is_online; then
+    echo "📦 sync repos"
+    git-push >/dev/null 2>&1
 else
-    target="${PWD}"
+    echo "⚠️ offline → skip sync"
 fi
 
-echo "📦 sync repos"
-git-push >/dev/null 2>&1
-
-# ✅ RESUME 저장
-resume_file="$HOME/my/.flow/core/RESUME.md"
-mkdir -p "$(dirname "$resume_file")"
-
-{
-    echo "# RESUME"
-    echo ""
-    echo "$target"
-} > "$resume_file"
-
-echo "✅ resume location saved: $target"
+# Save current location as entry point for next session's `go`
+# 현재 위치를 다음 세션의 go 진입점으로 저장
+flow_save_resume "$target"
 echo "$(flow_open_message)"
 
+# Open resume.md for user review before closing
+# resume.md를 열어 사용자가 검수할 수 있도록 대기
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    open -a TextEdit "$resume_file"
+    open -a TextEdit "$FLOW_CORE/resume.md"
 fi
 
 printf "%s" "$(flow_quit_prompt)"
 read -r
 
 echo "👋 Closing session..."
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    osascript -e 'tell application "Terminal" to close front window'
-else
-    exit
-fi
+flow_close_terminal

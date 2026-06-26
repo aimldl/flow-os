@@ -1,0 +1,11 @@
+# config — Bash Configuration
+
+# --------------------------------------------------
+# ⚙️ Flow OS > Environment
+# --------------------------------------------------
+
+# Color (macOS)
+export CLICOLOR=1
+
+# PATH
+export PATH="$HOME/.flow-os/bin:$PATH"

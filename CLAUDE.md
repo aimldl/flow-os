@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What is Flow OS
 
-Flow OS is a personal anti-procrastination shell system (~/.flow-os) that minimizes cognitive load for resuming priority tasks. It is **not** a traditional software project — it's a collection of shell scripts, aliases, and configuration files that form an "operating system" layer on top of zsh. The user data lives separately in `~/my/.flow/core/` (RESUME.md, TODO.md, MEMO.md, NEXT.md).
+Flow OS is a personal anti-procrastination shell system (~/.flow-os) that minimizes cognitive load for resuming priority tasks. It is **not** a traditional software project — it's a collection of shell scripts, aliases, and configuration files that form an "operating system" layer on top of zsh. The user data lives separately in `~/my/.flow/core/` (resume.md, todo.md, memo.md, next.md).
 
 ## Architecture
 
@@ -15,19 +15,24 @@ Two-layer design with strict separation:
 
 ### Key directories
 
-- `bin/` — Executable shell scripts (bash). All are on PATH via `shell/zsh/config`.
+- `bin/` — Executable shell scripts (bash). All are on PATH via `shell/zsh/config` or `shell/bash/config`.
 - `shell/zsh/` — Zsh configuration loaded at terminal startup:
   - `rc` — Dashboard display + prompt setup (loaded by `.zshrc`)
   - `functions` — Shell functions (notably `flow-go` and `__edit`)
   - `alias` — All user-facing command aliases
   - `config` — Environment variables and PATH
+- `shell/bash/` — Bash equivalents of the above (loaded by `.bashrc`):
+  - `rc` — Dashboard + `PROMPT_COMMAND`-based prompt
+  - `functions` — Same as zsh (bash-compatible)
+  - `alias` — Sources `shell/zsh/alias` (identical syntax)
+  - `config` — Environment variables and PATH
 
 ### Core state files (in ~/my/.flow/core/, not this repo)
 
-- `RESUME.md` — The most important file. Records where to resume work (path).
-- `TODO.md` — Task list with `[]`/`[v]` markers (Recommend only top 3 task)
-- `MEMO.md` — Quick-capture for stray thoughts (timestamped)
-- `NEXT.md` — Intention setting
+- `resume.md` — The most important file. Records where to resume work (path).
+- `todo.md` — Task list with `[]`/`[v]` markers (Recommend only top 3 task)
+- `memo.md` — Quick-capture for stray thoughts (timestamped)
+- `next.md` — Intention setting
 
 ### History archival
 
@@ -41,11 +46,11 @@ Key commands (all have multiple aliases defined in `shell/zsh/alias`):
 
 | Command | Script/Function | What it does |
 |---------|----------------|--------------|
-| `go` | `shell/zsh/functions:flow-go` | cd to path in RESUME.md line 1 |
-| `fmemo <text>` | `bin/flow-memo` | Append timestamped memo to MEMO.md |
-| `q` / `quit` | `bin/flow-quit` | git-push → save RESUME → review → close terminal |
-| `qq` | `bin/flow-quick-quit` | git-push → save RESUME → close terminal (no review) |
-| `cleanmemo` | `bin/flow-clean-memo` | Archive MEMO.md to history, reset core |
+| `go` | `shell/zsh/functions:flow-go` | cd to path in resume.md line 1 |
+| `fmemo <text>` | `bin/flow-memo` | Append timestamped memo to memo.md |
+| `q` / `quit` | `bin/flow-quit` | git-push → save resume → review → close terminal |
+| `qq` | `bin/flow-quick-quit` | git-push → save resume → close terminal (no review) |
+| `cleanmemo` | `bin/flow-clean-memo` | Archive memo.md to history, reset core |
 | `cleantodo` | `bin/flow-clean-todo` | Move `[v]` items to history, keep `[]` items |
 | `todo` / `resume` / `memo` | aliases | Open respective core file in editor |
 
@@ -53,15 +58,20 @@ Key commands (all have multiple aliases defined in `shell/zsh/alias`):
 
 - `flow-go` is a **shell function** (in `shell/zsh/functions`), not a standalone script, because it needs to `cd` in the current shell. The `bin/flow-go` file is a placeholder/reminder.
 - `__edit` opens TextEdit on macOS, nano on Linux.
-- `lib-date` is a shared bash library (sourced, not executed). It provides `flow_today`, `flow_time`, `flow_weekday`, `flow_history_dir`, and localized messages via `FLOW_LANG` (defaults to `ko`).
-- `git-push` and `git-sync` operate on all git repos under `~/my/craft/`, not on this repo.
-- `install.sh` is outdated — it references paths (`core/`, `docs/`) that don't exist in the current repo structure.
+- Shared bash libraries (`lib-*`) are sourced, not executed. Chain: `lib-resume` → `lib-path` → `lib-date`. `lib-git` is standalone.
+- `lib-git` provides smart sync utilities (network check, interval-based skip) and config-based repo iteration.
+- `git-push`, `git-pull`, `git-status` operate on repos defined in `bin/git-target-repos.cfg` (pipe-delimited `path|url` format). SSH auth.
+- Smart sync runs at terminal startup (`shell/zsh/rc`) with network check + interval skip (default 180 min).
+- `flow-quit` / `flow-quick-quit` wrap git-push with network check (skip push if offline).
+- `git-target-repos` (no extension) in `bin/` is a bash script sourced by `lib-git` — not executable directly.
 
 ## Shell configuration chain
 
-`.zshrc` (home) sources → `shell/zsh/config` → `shell/zsh/functions` → `shell/zsh/alias` → `shell/zsh/rc` (dashboard).
+**zsh:** `.zshrc` sources → `shell/zsh/config` → `shell/zsh/alias` → `shell/zsh/functions` → `shell/zsh/rc` (dashboard)
 
-The repo also ships `.zshrc`, `.zshalias`, `.zshconfig` templates in `shell/zsh/` (dotfile prefixed versions) that `install.sh` copies to `~/`.
+**bash:** `.bashrc` sources → `shell/bash/config` → `shell/bash/alias` → `shell/bash/functions` → `shell/bash/rc` (dashboard)
+
+`install.sh` detects available shells and appends the appropriate loader block to `~/.zshrc` and/or `~/.bashrc`.
 
 ## Language
 

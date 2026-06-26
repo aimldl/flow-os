@@ -1,32 +1,24 @@
 #!/usr/bin/env bash
+# flow-quick-quit — Quick quit: git push → save RESUME → close terminal (skip review)
+# Alias: qq, fqq
 
-source "$HOME/.flow-os/bin/lib-date"
+# flow-quick-quit — 빠른 종료: git push → RESUME 저장 → 즉시 터미널 닫기 (검수 생략)
+# 별칭: qq, fqq
 
-# ✅ target 계산 
-if [[ "$PWD" == "$HOME" ]]; then
-    target="~"
-elif [[ "$PWD" == "$HOME/"* ]]; then
-    target="${PWD#$HOME/}"
+source "$HOME/.flow-os/bin/lib-resume"
+source "$HOME/.flow-os/bin/lib-git"
+
+target=$(flow_relative_path)
+
+# Auto-commit & push all repos (skip if offline)
+# 모든 repo를 자동 커밋 & push (오프라인 시 건너뜀)
+if git_is_online; then
+    echo "📦 sync repos"
+    git-push >/dev/null 2>&1
 else
-    target="${PWD}"
+    echo "⚠️ offline → skip sync"
 fi
 
-echo "📦 sync repos"
-git-push >/dev/null 2>&1
-
-resume_file="$HOME/my/.flow/core/RESUME.md"
-mkdir -p "$(dirname "$resume_file")"
-
-{
-    echo "# RESUME"
-    echo "$target"
-} > "$resume_file"
-
-echo "✅ resume location saved: $target"
+flow_save_resume "$target"
 echo "$(flow_quick_exit_message)"
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    osascript -e 'tell application "Terminal" to close front window'
-else
-    exit
-fi
+flow_close_terminal

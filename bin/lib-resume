@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# lib-resume — Session state persistence and terminal control
+# Usage: source "$HOME/.flow-os/bin/lib-resume"
+# Provides: flow_save_resume, flow_close_terminal
+# Depends: lib-path → lib-date
+
+# lib-resume — 세션 종료 시 상태 저장 및 터미널 제어
+# 사용법: source "$HOME/.flow-os/bin/lib-resume"
+# 제공: flow_save_resume, flow_close_terminal
+# 의존: lib-path → lib-date
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "This is a library"
+  exit 1
+fi
+
+source "$HOME/.flow-os/bin/lib-path"
+
+# Save current working location to resume.md (entry point for next session's `go`)
+# 현재 작업 위치를 resume.md에 기록 (다음 세션의 go 진입점)
+flow_save_resume() {
+    local target="$1"
+    local resume_file="$FLOW_CORE/resume.md"
+    mkdir -p "$(dirname "$resume_file")"
+    {
+        echo "$target"
+    } > "$resume_file"
+    echo "✅ resume location saved: $target"
+}
+
+# macOS: close Terminal window / Linux: exit shell
+# macOS: Terminal 창 닫기 / Linux: 셸 종료
+flow_close_terminal() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        osascript -e 'tell application "Terminal" to close front window'
+    else
+        exit
+    fi
+}

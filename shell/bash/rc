@@ -1,3 +1,5 @@
+# rc — Bash Dashboard and Prompt
+
 # --------------------------------------------------
 # 🔄 Smart Git Sync (startup)
 # 🔄 스마트 Git 동기화 (터미널 시작 시)
@@ -49,11 +51,8 @@ echo "🚀 Run 'go' to resume at ${resume_path}"
 # 🔥 Prompt
 # --------------------------------------------------
 
-setopt PROMPT_SUBST
-
 _set_prompt() {
     local dir
-
     if [[ "$PWD" == "$HOME" ]]; then
         dir="~"
     elif [[ "$PWD" == "$HOME/"* ]]; then
@@ -61,12 +60,8 @@ _set_prompt() {
     else
         dir="$PWD"
     fi
-
-    dir="${dir/#~\//}"
-
-    PROMPT="${dir} %% "
+    PS1="${dir} \$ "
 }
 
-autoload -U add-zsh-hook
-add-zsh-hook precmd _set_prompt
+PROMPT_COMMAND="_set_prompt"
 _set_prompt

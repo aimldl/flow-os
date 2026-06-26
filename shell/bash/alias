@@ -1,0 +1,4 @@
+# alias — Bash Aliases
+# Alias syntax is identical to zsh; source the shared file to avoid duplication.
+
+source "$HOME/.flow-os/shell/zsh/alias"

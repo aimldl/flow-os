@@ -1,6 +1,11 @@
-Reminder
-- The script at .flow-os/bin/flow-go launches a sub-shell. 
-- Therefore, go must be implemented as a shell function instead.
-- The flow-go command is implemented as a method in .flow-os/shell/zsh/functions.
-- When listing `.flow-os/bin` commands, 
-  this placeholder file ensures `flow-go` appears. 
+# flow-go — cd to the first path in resume.md to resume work
+# Alias: go, fgo
+#
+# This file is a placeholder. The actual implementation is the flow-go()
+# function in shell/zsh/functions, because cd must run in the current shell.
+
+# flow-go — resume.md의 첫 번째 경로로 cd하여 작업 재개
+# 별칭: go, fgo
+#
+# 이 파일은 placeholder로, 실제 구현은 shell/zsh/functions의 flow-go() 함수에 있습니다.
+# cd는 현재 셸에서 실행해야 하므로 스크립트가 아닌 함수로 구현했습니다.

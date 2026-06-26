@@ -1,23 +1,27 @@
 #!/usr/bin/env bash
+# git-init — Clone repos listed in git-target-repos
+# Alias: ginit
 
-CONFIG="$HOME/.flow-os/bin/git-repositories.cfg"
-source "$CONFIG"
+# git-init — git-target-repos에 등록된 repo들을 클론
+# 별칭: ginit
 
-TARGET=${1:-all}
+source "$HOME/.flow-os/bin/lib-git"
+git_load_config
 
 echo "🚀 Initializing repos..."
 
-mkdir -p "$TARGET_DIR"
+for entry in "${ALL_REPOS[@]}"; do
+    path="$(git_repo_path "$entry")"
+    url="$(git_repo_url "$entry")"
+    dir="$REPO_BASE/$path"
 
-for repo in "${ALL_REPOS[@]}"; do
-    name=$(basename "$repo" .git)
-    dir="$TARGET_DIR/$name"
+    mkdir -p "$(dirname "$dir")"
 
     if [ -d "$dir/.git" ]; then
-        echo "⏭️  $name exists"
+        echo "⏭️  $path exists"
     else
-        git clone "$repo" "$dir"
-        echo "✅ cloned $name"
+        git clone "$url" "$dir"
+        echo "✅ cloned $path"
     fi
 done
 

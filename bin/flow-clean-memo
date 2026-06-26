@@ -1,34 +1,32 @@
 #!/usr/bin/env bash
-source "$HOME/.flow-os/bin/lib-date"
+# flow-clean-memo — Archive memo.md to daily history and reset
+# flow-clean-memo — memo.md를 날짜별 history로 아카이브하고 초기화
 
-CORE="$HOME/my/.flow/core/MEMO.md"
-HISTORY="$HOME/my/.flow/history"
+source "$HOME/.flow-os/bin/lib-path"
+
+CORE="$FLOW_CORE/memo.md"
 
 [ -f "$CORE" ] || exit
 
-DIR="$HISTORY/$(flow_history_dir)"
+DIR="$FLOW_HISTORY/$(flow_history_dir)"
 mkdir -p "$DIR"
 
-TARGET="$DIR/MEMO.md"
+TARGET="$DIR/memo.md"
 
+# ✅ Append to existing history file, or create new one
 # ✅ 기존 파일 있으면 append, 없으면 새로 생성
 if [ -f "$TARGET" ]; then
   echo "" >> "$TARGET"
   echo "## $(flow_today) ($(flow_weekday))" >> "$TARGET"
-  # 헤더(# MEMO) 제거하고 append
-  sed '1{/^# MEMO$/d;}' "$CORE" >> "$TARGET"
+  sed '1{/^# memo$/d;}' "$CORE" >> "$TARGET"
   echo "" >> "$TARGET"
 else
   cp "$CORE" "$TARGET"
-
-  # ✅ 복사된 경우도 대비
   echo "" >> "$TARGET"
 fi
 
-# ✅ CORE 초기화
-echo "# MEMO" > "$CORE"
+# ✅ Reset core memo.md
+# ✅ CORE memo.md 초기화
+echo "# memo" > "$CORE"
 
-# ✅ HOME 경로 제거해서 출력
-PRETTY_PATH="${TARGET/#$HOME\//}"
-
-echo "✅ memo archived to $PRETTY_PATH"
+echo "✅ memo archived to $(flow_pretty_path "$TARGET")"

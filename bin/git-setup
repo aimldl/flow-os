@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
+# git-setup — Create repo directories and set bin scripts executable
+# Alias: gsetup
+
+# git-setup — repo 디렉토리 생성 및 bin 스크립트 실행 권한 부여
+# 별칭: gsetup
+
+source "$HOME/.flow-os/bin/lib-git"
 
 echo "🚀 Setting up git environment..."
 
-mkdir -p "$HOME/my/craft"
+while IFS= read -r dir; do
+    mkdir -p "$dir"
+done < <(git_all_repo_dirs)
 
 chmod +x "$HOME/.flow-os/bin/"*
 

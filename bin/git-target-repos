@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# git-target-repos.cfg — Repository list for git sync operations
+# Format: "local_path|ssh_clone_url" (pipe-delimited)
+# Paths are relative to ~/my/. SSH auth (no credentials needed).
+
+# git-target-repos.cfg — git sync 대상 저장소 목록
+# 형식: "로컬경로|SSH_클론_URL" (파이프 구분)
+# 경로는 ~/my/ 기준 상대 경로. SSH 인증 (별도 인증 불필요).
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "This is a config file"
+  exit 1
+fi
+
+REPO_BASE="$HOME/my"
+GIT_HOST="git@github.com:aimldl"
+
+PRIVATE_REPOS=(
+    ".flow|$GIT_HOST/flow.git"
+)
+
+PUBLIC_REPOS=()
+
+ALL_REPOS=(
+    "${PRIVATE_REPOS[@]}"
+    "${PUBLIC_REPOS[@]}"
+)

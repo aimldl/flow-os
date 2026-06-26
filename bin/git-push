@@ -1,34 +1,31 @@
 #!/usr/bin/env bash
+# git-push — Auto-commit and push all config-defined git repos
+# Alias: gpush
+
+# git-push — 설정된 모든 git repo를 자동 커밋 & push
+# 별칭: gpush
+
 set -e
 
-TARGET="$HOME/my/craft"
+source "$HOME/.flow-os/bin/lib-git"
 
 echo "📦 git push..."
 
-for dir in "$TARGET"/*/; do
+while IFS= read -r dir; do
   [ -d "$dir/.git" ] || continue
   cd "$dir" || continue
 
   name=$(basename "$dir")
-
   status=$(git status --porcelain)
 
   if [ -n "$status" ]; then
-
-  echo "✅ $name (updated)"
-
-  git add .
-
-  git commit -m "auto: $(date '+%Y-%m-%d %H:%M')" >/dev/null 2>&1 || true
-
-  git push >/dev/null 2>&1 || true
-
- else
-
-  echo "• $name (clean)"
-
- fi
-
-done
+    echo "✅ $name (updated)"
+    git add .
+    git commit -m "auto: $(date '+%Y-%m-%d %H:%M')" >/dev/null 2>&1 || true
+    git push >/dev/null 2>&1 || true
+  else
+    echo "• $name (clean)"
+  fi
+done < <(git_all_repo_dirs)
 
 echo "✅ done"

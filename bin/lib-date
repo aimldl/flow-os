@@ -1,14 +1,26 @@
 #!/usr/bin/env bash
+# lib-date — Date/time utilities and localized messages (ko/en/ja)
+# Usage: source "$HOME/.flow-os/bin/lib-date"
+# Env:   FLOW_LANG (default: ko)
+
+# lib-date — 날짜/시간 유틸리티 및 다국어 메시지 (ko/en/ja)
+# 사용법: source "$HOME/.flow-os/bin/lib-date"
+# 환경변수: FLOW_LANG (기본값: ko)
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   echo "This is a library"
   exit 1
 fi
 
+# --- Date/Time ---
+# --- 날짜/시간 ---
+
 flow_lang() {
   echo "${FLOW_LANG:-ko}"
 }
 
+# Localized weekday name
+# 로케일별 요일 이름 반환
 flow_weekday() {
   local lang weekday
   lang="$(flow_lang)"
@@ -24,27 +36,34 @@ flow_weekday() {
   echo "${days[$((weekday-1))]}"
 }
 
+# YYYY-MM-DD
 flow_today() {
   date '+%Y-%m-%d'
 }
 
+# HH:MM
 flow_time() {
   date '+%H:%M'
 }
 
+# History archive directory name: YYYY-MM-DD-weekday
+# history 아카이브 디렉토리명: YYYY-MM-DD-요일
 flow_history_dir() {
   echo "$(flow_today)-$(flow_weekday)"
 }
+
+# --- Localized messages (used during quit) ---
+# --- 다국어 메시지 (quit 시 사용) ---
 
 flow_open_message() {
   local lang
   lang="$(flow_lang)"
 
   case "$lang" in
-    ko) echo "👀 RESUME.md를 열어 검수합니다..." ;;
-    en) echo "👀 Opening RESUME.md for review..." ;;
-    ja) echo "👀 RESUME.md を開いて確認します..." ;;
-    *)  echo "👀 RESUME.md를 열어 검수합니다..." ;;
+    ko) echo "👀 resume.md를 열어 검수합니다..." ;;
+    en) echo "👀 Opening resume.md for review..." ;;
+    ja) echo "👀 resume.md を開いて確認します..." ;;
+    *)  echo "👀 resume.md를 열어 검수합니다..." ;;
   esac
 }
 

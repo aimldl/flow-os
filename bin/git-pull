@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# git-pull — Pull all config-defined git repos to sync latest changes
+# Alias: gpull
+
+# git-pull — 설정된 모든 git repo를 pull하여 최신 상태로 동기화
+# 별칭: gpull
+
+source "$HOME/.flow-os/bin/lib-git"
+
+echo "🔧 pulling repos..."
+
+while IFS= read -r dir; do
+  [ -d "$dir/.git" ] || continue
+  cd "$dir"
+  name=$(basename "$dir")
+  echo "⬇️ $name"
+  git pull
+done < <(git_all_repo_dirs)
+
+echo "✅ done"

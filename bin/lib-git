@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+# lib-git — Git sync utilities: network check, interval skip, config loading
+# Usage: source "$HOME/.flow-os/bin/lib-git"
+# Provides: git_is_online, git_should_sync, git_mark_synced, git_minutes_since_sync,
+#           git_repo_path, git_repo_url, git_all_repo_dirs
+# Depends: git-target-repos
+
+# lib-git — Git 동기화 유틸리티: 네트워크 확인, 간격 기반 건너뛰기, 설정 로드
+# 사용법: source "$HOME/.flow-os/bin/lib-git"
+# 제공: git_is_online, git_should_sync, git_mark_synced, git_minutes_since_sync,
+#       git_repo_path, git_repo_url, git_all_repo_dirs
+# 의존: git-target-repos
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "This is a library"
+  exit 1
+fi
+
+# --- Constants ---
+# --- 상수 ---
+
+FLOW_GIT_CONFIG="$HOME/.flow-os/bin/git-target-repos"
+FLOW_GIT_TIMESTAMP="$HOME/my/.flow/last_gsync"
+FLOW_SYNC_INTERVAL="${SYNC_INTERVAL_MINUTES:-180}"
+
+# --- Network ---
+# --- 네트워크 ---
+
+# Check if github.com is reachable
+# github.com 접속 가능 여부 확인
+git_is_online() {
+    ping -q -c 1 github.com >/dev/null 2>&1
+}
+
+# --- Interval ---
+# --- 간격 제어 ---
+
+# Minutes elapsed since last sync (returns interval value if no timestamp)
+# 마지막 sync 이후 경과 시간 (타임스탬프 없으면 간격값 반환하여 sync 강제)
+git_minutes_since_sync() {
+    if [ -f "$FLOW_GIT_TIMESTAMP" ]; then
+        local last_s now_s
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            last_s=$(stat -f %m "$FLOW_GIT_TIMESTAMP")
+        else
+            last_s=$(stat -c %Y "$FLOW_GIT_TIMESTAMP")
+        fi
+        now_s=$(date +%s)
+        echo $(( (now_s - last_s) / 60 ))
+    else
+        echo "$FLOW_SYNC_INTERVAL"
+    fi
+}
+
+# True if enough time has passed since last sync
+# 마지막 sync 이후 충분한 시간이 경과했으면 true
+git_should_sync() {
+    local diff
+    diff=$(git_minutes_since_sync)
+    [ "$diff" -ge "$FLOW_SYNC_INTERVAL" ]
+}
+
+# Update the sync timestamp
+# sync 타임스탬프 갱신
+git_mark_synced() {
+    date > "$FLOW_GIT_TIMESTAMP"
+}
+
+# --- Config ---
+# --- 설정 ---
+
+# Load repository configuration
+# 저장소 설정 파일 로드
+git_load_config() {
+    source "$FLOW_GIT_CONFIG"
+}
+
+# Extract local path from "path|url" entry
+# "경로|URL" 항목에서 로컬 경로 추출
+git_repo_path() {
+    echo "${1%%|*}"
+}
+
+# Extract SSH URL from "path|url" entry
+# "경로|URL" 항목에서 SSH URL 추출
+git_repo_url() {
+    echo "${1#*|}"
+}
+
+# Print absolute paths of all configured repo directories
+# 설정된 모든 repo 디렉토리의 절대 경로 출력
+git_all_repo_dirs() {
+    git_load_config
+    local entry path
+    for entry in "${ALL_REPOS[@]}"; do
+        path="$(git_repo_path "$entry")"
+        echo "$REPO_BASE/$path"
+    done
+}
