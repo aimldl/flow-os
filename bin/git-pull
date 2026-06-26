@@ -12,7 +12,7 @@ echo "🔧 pulling repos..."
 while IFS= read -r dir; do
   [ -d "$dir/.git" ] || continue
   cd "$dir"
-  name=$(basename "$dir")
+  name=$(basename "$(realpath "$dir")")
   echo "⬇️ $name"
   git pull
 done < <(git_all_repo_dirs)
