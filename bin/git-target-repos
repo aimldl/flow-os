@@ -16,7 +16,7 @@ REPO_BASE="$HOME/my"
 GIT_HOST="git@github.com:aimldl"
 
 PRIVATE_REPOS=(
-    ".flow|$GIT_HOST/flow.git"
+    ".|$GIT_HOST/my.git"
 )
 
 PUBLIC_REPOS=()
