@@ -76,8 +76,8 @@ day=$(flow_weekday)
 
 # Add date section if not exists
 # 해당 날짜 섹션이 없으면 추가
-if ! grep -q "^$today" "$FILE"; then
-  echo "$today ($day)" >> "$FILE"
+if ! grep -q "^   $today" "$FILE"; then
+  echo "   $today-$day" >> "$FILE"
 fi
 
 # Ensure newline before appending

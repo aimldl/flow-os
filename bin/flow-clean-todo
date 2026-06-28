@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# flow-clean-todo — Archive completed tasks ([v]/[x]) to history, pad to 3 open slots
-# flow-clean-todo — 완료된 할 일([v]/[x])을 history로 아카이브하고, 총 3개가 되도록 빈 항목 추가
+# flow-clean-todo — Archive [v]/[x] to v-todo-YYYY-MM.md, move [->] to next.md, pad to 3 open slots
+# flow-clean-todo — [v]/[x]를 v-todo-YYYY-MM.md로, [->]를 next.md로 이동하고 총 3개가 되도록 빈 항목 추가
 
 source "$HOME/.flow-os/bin/lib-path"
 
@@ -8,12 +8,44 @@ CORE="$FLOW_CORE/todo.md"
 
 [ -f "$CORE" ] || exit
 
-DIR="$FLOW_HISTORY/$(flow_history_dir)"
-mkdir -p "$DIR"
+today=$(flow_today)
+today_full=$(flow_today_full)
+ym="${today:0:7}"
 
-# ✅ Archive completed items ([v] or [x]) to history
-# ✅ 완료된 항목 ([v] 또는 [x])을 history로 이동
-grep -E '^\[(v|x)\]' "$CORE" >> "$DIR/todo.md" 2>/dev/null || true
+TARGET="$FLOW_CORE/v-todo-$ym.md"
+
+# ✅ Archive completed items ([v] or [x]) to monthly file
+# ✅ 완료된 항목 ([v] 또는 [x])을 월별 파일로 이동
+completed=$(grep -E '^\[(v|x)\]' "$CORE" 2>/dev/null || true)
+
+if [ -n "$completed" ] && ! grep -q "^   $today" "$TARGET" 2>/dev/null; then
+    if [ -f "$TARGET" ]; then
+        {
+            printf -- "---\n\n   %s\n\n%s\n\n" "$today_full" "$completed"
+            cat "$TARGET"
+        } > "$TARGET.tmp"
+        mv "$TARGET.tmp" "$TARGET"
+    else
+        printf -- "---\n\n   %s\n\n%s\n\n---\n" "$today_full" "$completed" > "$TARGET"
+    fi
+fi
+
+# ✅ Move in-progress items ([->]) to next.md with date header
+# ✅ 진행중 항목 ([->])을 날짜 헤더와 함께 next.md로 이동
+NEXT_FILE="$FLOW_CORE/next.md"
+in_progress=$(grep -E '^\[->\]' "$CORE" 2>/dev/null || true)
+
+if [ -n "$in_progress" ]; then
+    if [ -f "$NEXT_FILE" ]; then
+        {
+            printf -- "---\n\n   %s\n\n%s\n\n" "$today_full" "$in_progress"
+            cat "$NEXT_FILE"
+        } > "$NEXT_FILE.tmp"
+        mv "$NEXT_FILE.tmp" "$NEXT_FILE"
+    else
+        printf -- "---\n\n   %s\n\n%s\n\n---\n" "$today_full" "$in_progress" > "$NEXT_FILE"
+    fi
+fi
 
 # ✅ Keep only incomplete items, drop empty date headers
 # ✅ 미완료 항목만 유지, 빈 날짜 헤더 제거
@@ -58,11 +90,9 @@ remaining=${remaining:-0}
 new_count=$((3 - remaining))
 
 if [ "$new_count" -gt 0 ]; then
-    today="$(flow_today) ($(flow_weekday))"
-
-    if ! grep -q "^$(flow_today)" "$CORE" 2>/dev/null; then
+    if ! grep -q "^   $today" "$CORE" 2>/dev/null; then
         [ -s "$CORE" ] && echo "" >> "$CORE"
-        echo "   $today" >> "$CORE"
+        echo "   $today_full" >> "$CORE"
     fi
 
     for _ in $(seq 1 "$new_count"); do

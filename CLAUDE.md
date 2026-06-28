@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What is Flow OS
 
-Flow OS is a personal anti-procrastination shell system (~/.flow-os) that minimizes cognitive load for resuming priority tasks. It is **not** a traditional software project — it's a collection of shell scripts, aliases, and configuration files that form an "operating system" layer on top of zsh. The user data lives separately in `~/my/.flow/core/` (resume.md, todo.md, memo.md, next.md).
+Flow OS is a personal anti-procrastination shell system (~/.flow-os) that minimizes cognitive load for resuming priority tasks. It is **not** a traditional software project — it's a collection of shell scripts, aliases, and configuration files that form an "operating system" layer on top of zsh. The user data lives separately in `~/my/.flow/` (resume.md, todo.md, memo.md, next.md, v-*.md).
 
 ## Architecture
 
@@ -27,16 +27,16 @@ Two-layer design with strict separation:
   - `alias` — Sources `shell/zsh/alias` (identical syntax)
   - `config` — Environment variables and PATH
 
-### Core state files (in ~/my/.flow/core/, not this repo)
+### Core state files (in ~/my/.flow/, not this repo)
 
 - `resume.md` — The most important file. Records where to resume work (path).
 - `todo.md` — Task list with `[]`/`[v]` markers (Recommend only top 3 task)
 - `memo.md` — Quick-capture for stray thoughts (timestamped)
 - `next.md` — Intention setting
 
-### History archival
+### Monthly archives (in ~/my/.flow/, not this repo)
 
-`flow-clean-memo` and `flow-clean-todo` archive to `~/my/.flow/history/YYYY-MM-DD-DAY/`.
+`flow-clean-memo` prepends to `v-memo-YYYY-MM.md`; `flow-clean-todo` prepends completed items to `v-todo-YYYY-MM.md`. Each entry is headed by `# YYYY-MM-DD` and wrapped with `---` separators. Latest date appears first (reverse chronological). Both commands are idempotent — re-running on the same day is a no-op.
 
 ## Command flow
 
@@ -50,8 +50,9 @@ Key commands (all have multiple aliases defined in `shell/zsh/alias`):
 | `fmemo <text>` | `bin/flow-memo` | Append timestamped memo to memo.md |
 | `q` / `quit` | `bin/flow-quit` | git-push → save resume → review → close terminal |
 | `qq` | `bin/flow-quick-quit` | git-push → save resume → close terminal (no review) |
-| `cleanmemo` | `bin/flow-clean-memo` | Archive memo.md to history, reset core |
-| `cleantodo` | `bin/flow-clean-todo` | Move `[v]` items to history, keep `[]` items |
+| `cleanmemo` | `bin/flow-clean-memo` | Prepend memo to `v-memo-YYYY-MM.md`, reset memo.md |
+| `cleantodo` | `bin/flow-clean-todo` | Prepend `[v]` items to `v-todo-YYYY-MM.md`; prepend `[->]` items to `next.md`; keep `[]` items |
+| `cleannext` | `bin/flow-clean-next` | Prepend next.md to `v-next-YYYY-MM.md`, reset next.md |
 | `todo` / `resume` / `memo` | aliases | Open respective core file in editor |
 
 ## Important implementation details

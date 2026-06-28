@@ -20,7 +20,7 @@ fi
 # --- 상수 ---
 
 FLOW_GIT_CONFIG="$HOME/.flow-os/bin/git-target-repos"
-FLOW_GIT_TIMESTAMP="$HOME/my/.flow/last_gsync"
+FLOW_GIT_TIMESTAMP="$HOME/my/.flow/.last_gsync"
 FLOW_SYNC_INTERVAL="${SYNC_INTERVAL_MINUTES:-180}"
 
 # --- Network ---

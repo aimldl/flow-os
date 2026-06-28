@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # lib-path — Flow OS path constants and path conversion utilities
 # Usage: source "$HOME/.flow-os/bin/lib-path"
-# Provides: FLOW_CORE, FLOW_HISTORY, flow_relative_path, flow_pretty_path
+# Provides: FLOW_CORE, flow_relative_path, flow_pretty_path
 # Depends: lib-date
 
 # lib-path — Flow OS 경로 상수 및 경로 변환 유틸리티
 # 사용법: source "$HOME/.flow-os/bin/lib-path"
-# 제공: FLOW_CORE, FLOW_HISTORY, flow_relative_path, flow_pretty_path
+# 제공: FLOW_CORE, flow_relative_path, flow_pretty_path
 # 의존: lib-date
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
@@ -16,12 +16,9 @@ fi
 
 source "$HOME/.flow-os/bin/lib-date"
 
-# Core state files directory (resume.md, todo.md, memo.md)
-# 핵심 상태 파일 디렉토리 (resume.md, todo.md, memo.md)
-FLOW_CORE="$HOME/my/.flow/core"
-# Archive directory (daily history)
-# 아카이브 디렉토리 (날짜별 history)
-FLOW_HISTORY="$HOME/my/.flow/history"
+# State files root (resume.md, todo.md, memo.md, next.md, v-*.md)
+# 상태 파일 루트 (resume.md, todo.md, memo.md, next.md, v-*.md)
+FLOW_CORE="$HOME/my/.flow"
 
 # Convert PWD to ~ or HOME-relative path
 # PWD를 ~ 또는 HOME 기준 상대 경로로 변환

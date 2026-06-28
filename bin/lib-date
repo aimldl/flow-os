@@ -46,9 +46,9 @@ flow_time() {
   date '+%H:%M'
 }
 
-# History archive directory name: YYYY-MM-DD-weekday
-# history 아카이브 디렉토리명: YYYY-MM-DD-요일
-flow_history_dir() {
+# YYYY-MM-DD-weekday (e.g. 2026-06-28-일)
+# YYYY-MM-DD-요일 형식
+flow_today_full() {
   echo "$(flow_today)-$(flow_weekday)"
 }
 

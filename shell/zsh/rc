@@ -39,10 +39,10 @@ echo "   └── vault     보호  비공개 데이터 (private)"
 echo ""
 
 echo "📝 TODO"
-[ -f "$HOME/my/.flow/core/todo.md" ] && grep -v "^#" "$HOME/my/.flow/core/todo.md" | grep -v "^$"
+[ -f "$HOME/my/.flow/todo.md" ] && grep -v "^#" "$HOME/my/.flow/todo.md" | grep -v "^$"
 
 echo ""
-resume_path=$([ -f "$HOME/my/.flow/core/resume.md" ] && grep -v "^#" "$HOME/my/.flow/core/resume.md" | grep -v "^$" | head -1)
+resume_path=$([ -f "$HOME/my/.flow/resume.md" ] && grep -v "^#" "$HOME/my/.flow/resume.md" | grep -v "^$" | head -1)
 echo "🚀 Run 'go' to resume at ${resume_path}"
 
 # --------------------------------------------------

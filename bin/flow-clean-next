@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# flow-clean-memo — Archive memo.md to monthly v-memo-YYYY-MM.md and reset
-# flow-clean-memo — memo.md를 월별 v-memo-YYYY-MM.md로 아카이브하고 초기화
+# flow-clean-next — Archive next.md to monthly v-next-YYYY-MM.md and reset
+# flow-clean-next — next.md를 월별 v-next-YYYY-MM.md로 아카이브하고 초기화
 
 source "$HOME/.flow-os/bin/lib-path"
 
-CORE="$FLOW_CORE/memo.md"
+CORE="$FLOW_CORE/next.md"
 
 [ -f "$CORE" ] || exit
 
@@ -12,18 +12,18 @@ today=$(flow_today)
 today_full=$(flow_today_full)
 ym="${today:0:7}"
 
-TARGET="$FLOW_CORE/v-memo-$ym.md"
+TARGET="$FLOW_CORE/v-next-$ym.md"
 
 # Idempotency: skip if today's entry already archived
 # 중복 방지: 오늘 날짜 항목이 이미 있으면 건너뜀
 if grep -q "^   $today" "$TARGET" 2>/dev/null; then
-    echo "⚠️  memo for $today_full already archived — skipped"
+    echo "⚠️  next for $today_full already archived — skipped"
     exit 0
 fi
 
-# Extract content: strip leading '# memo' header and leading blank lines
-# 내용 추출: '# memo' 헤더 및 앞 빈줄 제거
-content=$(sed '/^# memo$/d' "$CORE" | sed '/./,$!d')
+# Extract content: strip leading '# next' header and leading blank lines
+# 내용 추출: '# next' 헤더 및 앞 빈줄 제거
+content=$(sed '/^# next$/d' "$CORE" | sed '/./,$!d')
 
 # Prepend entry to monthly archive (latest date on top)
 # 월별 아카이브 앞에 추가 (최신 날짜가 위)
@@ -37,8 +37,8 @@ else
     printf -- "---\n\n   %s\n\n%s\n\n---\n" "$today_full" "$content" > "$TARGET"
 fi
 
-# Reset core memo.md
-# CORE memo.md 초기화
-echo "# memo" > "$CORE"
+# Reset core next.md
+# CORE next.md 초기화
+echo "# next" > "$CORE"
 
-echo "✅ memo archived to $(flow_pretty_path "$TARGET")"
+echo "✅ next archived to $(flow_pretty_path "$TARGET")"
