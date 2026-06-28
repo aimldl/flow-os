@@ -8,8 +8,9 @@
 | `fmemo <텍스트>` | | '잡'생각을 memo.md에 기록 (멀티라인 입력 지원) |
 | `q` | `quit`, `fquit` | 표준 종료: git push → resume 저장 → 검수 → 터미널 닫기 |
 | `qq` | `fqq`, `quickquit` | 빠른 종료: git push → resume 저장 → 즉시 터미널 닫기 |
-| `cleanmemo` | `fcleanmemo`, `clean-memo` | memo.md를 history로 아카이브하고 초기화 |
-| `cleantodo` | `fcleantodo`, `clean-todo` | 완료 항목([v]/[x])을 history로 이동, 빈 슬롯 3개 채움 |
+| `cleanmemo` | `fcleanmemo`, `clean-memo` | memo.md → `v-memo-YYYY-MM.md` prepend, 초기화 |
+| `cleantodo` | `fcleantodo`, `clean-todo` | `[v]` → `v-todo-YYYY-MM.md`, `[->]` → `next.md`, `[]` 유지, 빈 슬롯 3개 채움 |
+| `cleannext` | `fcleannext`, `clean-next` | next.md → `v-next-YYYY-MM.md` prepend, 초기화 |
 
 ---
 
@@ -37,9 +38,10 @@ FLOW_MEMO_VIEW=off | layer | full_path
 
 | 명령어     | 별칭                    | 대상 파일                                   |
 | ---------- | ----------------------- | ------------------------------------------- |
-| `todo`     | `etodo`, `edittodo`     | `~/my/.flow/core/todo.md`                   |
-| `resume`   | `eresume`, `editresume` | `~/my/.flow/core/resume.md`                 |
-| `memo`     | `ememo`, `editmemo`     | `~/my/.flow/core/memo.md`                   |
+| `todo`     | `etodo`, `edittodo`     | `~/my/.flow/todo.md`                        |
+| `resume`   | `eresume`, `editresume` | `~/my/.flow/resume.md`                      |
+| `memo`     | `ememo`, `editmemo`     | `~/my/.flow/memo.md`                        |
+| `next`     | `enext`, `editnext`     | `~/my/.flow/next.md`                        |
 | `fcmd`     |                         | `~/.flow-os/docs/commands.md`               |
 | `e <파일>` | `edit`                  | 지정한 파일 (macOS: TextEdit / Linux: nano) |
 
@@ -50,7 +52,7 @@ FLOW_MEMO_VIEW=off | layer | full_path
 | `my`   |                                 | `~/my`               |
 | `temp` | `tmp`, `myt`, `mytmp`, `mytemp` | `~/my/temp`          |
 | `flow` | `f`, `myf`, `myflow`            | `~/my/.flow`         |
-| `old`  | `myold`, `myflowhistory`        | `~/my/.flow/history` |
+| `old`  | `myold`, `myflowhistory`        | `~/my/.flow`         |
 | `fos`  | `flowos`                        | `~/.flow-os`         |
 
 ## Git 자동화

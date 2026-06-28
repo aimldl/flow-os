@@ -151,7 +151,7 @@ Flow OS는 구조를 다음과 같이 재정의합니다.
 반복적으로 발생하는 에너지의 낭비를 막으려는 시도의 예로 파일명과 디렉토리명의 선택이 있습니다.
 
 - `flow-entry/temporary/MEMO.md`
-   → `~/my/.flow/core/MEMO.md` → `~/my/.flow/core/memo.md`
+   → `~/my/.flow/core/MEMO.md` → `~/my/.flow/core/memo.md` → `~/my/.flow/memo.md`
 
 Shift키를 누르며 타이핑하는 MEMO.md보다 누르지 않는 memo.md가 더 효율적인 이름입니다.
 

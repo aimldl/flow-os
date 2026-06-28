@@ -47,7 +47,7 @@ PUBLIC_REPOS=( "craft/my-repo|git@github.com:user/my-repo.git" )
 
 - **네트워크 확인**: `github.com`에 ping으로 접속 가능 여부 확인
 - **간격 제한**: 마지막 sync 이후 180분이 경과해야 재실행 (환경변수 `SYNC_INTERVAL_MINUTES`로 변경 가능)
-- **타임스탬프**: `~/my/.flow/last_gsync` 파일에 마지막 sync 시각 기록
+- **타임스탬프**: `~/my/.flow/.last_gsync` 파일에 마지막 sync 시각 기록
 
 ## 관련 파일
 
