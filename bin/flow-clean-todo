@@ -47,57 +47,16 @@ if [ -n "$in_progress" ]; then
     fi
 fi
 
-# ✅ Keep only incomplete items, drop empty date headers
-# ✅ 미완료 항목만 유지, 빈 날짜 헤더 제거
-awk '
-BEGIN {
-    header=""
-    buffer=""
-    has_task=0
-}
+# ✅ Rebuild todo.md: today's date header + existing [] items + padding to 3
+# ✅ todo.md 재작성: 오늘 날짜 헤더 + 기존 [] 항목 + 3개가 되도록 패딩
+existing=$(grep '^\[\]' "$CORE" 2>/dev/null || true)
+remaining=$(grep -c '^\[\]' "$CORE" 2>/dev/null || echo 0)
+new_count=$(( 3 - remaining < 0 ? 0 : 3 - remaining ))
 
-/^[0-9]{4}-[0-9]{2}-[0-9]{2}/ {
-    if (has_task) {
-        print header
-        printf "%s", buffer
-    }
-    header = $0
-    buffer = ""
-    has_task = 0
-    next
-}
-
-/^\[\]/ {
-    buffer = buffer $0 "\n"
-    has_task = 1
-    next
-}
-
-END {
-    if (has_task) {
-        print header
-        printf "%s", buffer
-    }
-}
-' "$CORE" > "$CORE.tmp"
-
-mv "$CORE.tmp" "$CORE"
-
-# ✅ Pad to 3 total open tasks
-# ✅ 총 3개가 되도록 빈 할 일 추가
-remaining=$(grep -c '^\[\]' "$CORE" 2>/dev/null || true)
-remaining=${remaining:-0}
-new_count=$((3 - remaining))
-
-if [ "$new_count" -gt 0 ]; then
-    if ! grep -q "^   $today" "$CORE" 2>/dev/null; then
-        [ -s "$CORE" ] && echo "" >> "$CORE"
-        echo "   $today_full" >> "$CORE"
-    fi
-
-    for _ in $(seq 1 "$new_count"); do
-        echo "[] " >> "$CORE"
-    done
-fi
+{
+  echo "   $today_full"
+  [ -n "$existing" ] && printf '%s\n' "$existing"
+  i=0; while [ "$i" -lt "$new_count" ]; do echo "[] "; i=$((i+1)); done
+} > "$CORE"
 
 echo "✅ todo cleaned"

@@ -26,7 +26,7 @@ trap 'echo ""; echo "❌ canceled"; exit 1' INT
 if [ "$#" -gt 0 ]; then
   msg="$*"
 else
-  echo "📝 enter memo (Ctrl+D to save, Ctrl+C to cancel)"
+  echo "📝 enter memo (Enter + Ctrl+D to save, Ctrl+C to cancel)"
   msg="$(cat)"
 fi
 
@@ -74,26 +74,45 @@ today=$(flow_today)
 time=$(flow_time)
 day=$(flow_weekday)
 
-# Add date section if not exists
-# 해당 날짜 섹션이 없으면 추가
-if ! grep -q "^   $today" "$FILE"; then
-  echo "   $today-$day" >> "$FILE"
+# Format new memo lines into a temp file
+# 새 메모를 임시 파일에 포맷
+new_lines_file=$(mktemp)
+while IFS= read -r line; do
+  if [ -n "$context" ]; then
+    printf "%s  %-*s | %s\n" "$time" "$max_width" "$context" "$line"
+  else
+    printf "%s  %s\n" "$time" "$line"
+  fi
+done <<< "$msg" > "$new_lines_file"
+
+# Prepend new entry to file (newest first)
+# 새 메모를 파일 앞쪽에 추가 (최신 순)
+tmpfile=$(mktemp)
+if grep -q "^   $today" "$FILE"; then
+  # Today's section exists — insert new lines right after the date header
+  # 오늘 날짜 섹션이 있으면 날짜 헤더 바로 다음에 삽입
+  (
+    inserted=0
+    while IFS= read -r fline || [ -n "$fline" ]; do
+      printf "%s\n" "$fline"
+      if [ "$inserted" -eq 0 ] && [[ "$fline" == "   $today"* ]]; then
+        cat "$new_lines_file"
+        inserted=1
+      fi
+    done < "$FILE"
+  ) > "$tmpfile"
+else
+  # New day — prepend date header and new lines after "# memo"
+  # 새 날짜면 # memo 다음에 날짜 헤더와 메모를 추가
+  {
+    head -1 "$FILE"
+    printf "   %s-%s\n" "$today" "$day"
+    cat "$new_lines_file"
+    tail -n +2 "$FILE"
+  } > "$tmpfile"
 fi
 
-# Ensure newline before appending
-# append 전에 항상 줄바꿈 확보
-echo "" >> "$FILE"
-
-# Append memo content
-# 메모 내용 추가 (멀티라인 대응)
-{
-  while IFS= read -r line; do
-    if [ -n "$context" ]; then
-      printf "%s  %-*s | %s\n" "$time" "$max_width" "$context" "$line"
-    else
-      echo "$time  $line"
-    fi
-  done <<< "$msg"
-} >> "$FILE"
+mv "$tmpfile" "$FILE"
+rm -f "$new_lines_file"
 
 echo "✅ saved!"
