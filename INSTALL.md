@@ -167,6 +167,20 @@ $
 ```bash
 git clone git@github.com:aimldl/flow-os.git ~/.flow-os
 ```
+
+예
+```bash
+$ git clone git@github.com:aimldl/flow-os.git ~/.flow-os
+'/home/thekim/.flow-os'에 복제합니다...
+remote: Enumerating objects: 359, done.
+remote: Counting objects: 100% (153/153), done.
+remote: Compressing objects: 100% (121/121), done.
+remote: Total 359 (delta 72), reused 81 (delta 31), pack-reused 206 (from 1)
+오브젝트를 받는 중: 100% (359/359), 149.55 KiB | 365.00 KiB/s, 완료.
+델타를 알아내는 중: 100% (167/167), 완료.
+$
+```
+
 💡 만약 이미 `~/flow-os`로 잘못 클론했다면?
 아래 명령어를 통해 디렉토리 이름을 간단히 변경할 수 있습니다.
 
