@@ -243,6 +243,35 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 - bash는 `exec bash`를
 실행합니다.
 
+첫 실행 시 아래와 같이 `resume at` 다음이 비어있습니다. 
+
+```
+🔄 Syncing repos...
+   Flow OS
+🎯 목표: 기억하지 않고, 망설이지 않고, 바로 실행하는 상태 만들기
+👉 목적: 기억 복원, 현재 상태 즉시 인지, 작업 진입 마찰 제거
+🔄 흐름: 시작 → 복귀 → 유지 → 종료
+
+   터미널 → todo → go → 작업1 → 작업2 → 작업3 → clean → quit
+                         (🧠 → memo → todo)
+                         💭 잡생각→흘려보냄
+
+✨ my            의도  인지 상태
+   ├── craft     유지  이미 익숙한 기술 유지
+   ├── forge     학습  배우고 성장
+   ├── jobs      실행  실행 단위 작업
+   ├── projects  확장  job보다 큰 프로젝트
+   ├── temp      임시  임시 작업/파일
+   └── vault     보호  비공개 데이터 (private)
+
+📝 TODO
+
+🚀 Run 'go' to resume at [위치]
+~ $
+```
+
+`todo` 명령어를 실행해서 입력합니다.
+
 > 💡 환경 호환성 안내
 > 설치 스크립트는 Linux의 Bash 환경과 macOS의 Zsh 환경을 자동 감지하고 지원하도록 설계되었습니다.
 >
