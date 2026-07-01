@@ -243,7 +243,12 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 - bash는 `exec bash`를
 실행합니다.
 
-첫 실행 시 아래와 같이 `resume at` 다음이 비어있습니다. 
+> 💡 환경 호환성 안내
+> 설치 스크립트는 Linux의 Bash 환경과 macOS의 Zsh 환경을 자동 감지하고 지원하도록 설계되었습니다.
+>
+> 참고: macOS Catalina(10.15) 버전부터 터미널의 기본 쉘이 Bash에서 Zsh로 변경됐습니다.
+
+## 4. 첫 실행 시 
 
 ```
 🔄 Syncing repos...
@@ -266,18 +271,63 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 
 📝 TODO
 
-🚀 Run 'go' to resume at [위치]
+🚀 Run 'go' to resume at 
 ~ $
 ```
 
+위처럼 `resume at` 다음이 비어있습니다. 
+
 `todo` 명령어를 실행해서 입력합니다.
 
-> 💡 환경 호환성 안내
-> 설치 스크립트는 Linux의 Bash 환경과 macOS의 Zsh 환경을 자동 감지하고 지원하도록 설계되었습니다.
->
-> 참고: macOS Catalina(10.15) 버전부터 터미널의 기본 쉘이 Bash에서 Zsh로 변경됐습니다.
+```bash
+~ $ todo
+```
 
-## 4. 디렉토리 구조 확인
+그만 두기 위해 `q` 명령어를 실행해서
+```bash
+~ $ q
+📦 sync repos
+✅ resume location saved: ~
+👀 resume.md를 열어 검수합니다...
+✅ RESUME 검수 후 종료하려면 Enter (취소: Ctrl+C): 
+👋 Closing session...
+~ $
+```
+
+터미널을 재시작합니다.
+
+```bash
+✅ Sync skipped (sync'd 17 min ago)
+   Flow OS
+🎯 목표: 기억하지 않고, 망설이지 않고, 바로 실행하는 상태 만들기
+👉 목적: 기억 복원, 현재 상태 즉시 인지, 작업 진입 마찰 제거
+🔄 흐름: 시작 → 복귀 → 유지 → 종료
+
+   터미널 → todo → go → 작업1 → 작업2 → 작업3 → clean → quit
+                         (🧠 → memo → todo)
+                         💭 잡생각→흘려보냄
+
+✨ my            의도  인지 상태
+   ├── craft     유지  이미 익숙한 기술 유지
+   ├── forge     학습  배우고 성장
+   ├── jobs      실행  실행 단위 작업
+   ├── projects  확장  job보다 큰 프로젝트
+   ├── temp      임시  임시 작업/파일
+   └── vault     보호  비공개 데이터 (private)
+
+📝 TODO
+[] 두 개의 다른 기기에서 동작 여부 테스트
+
+🚀 Run 'go' to resume at ~
+~ $
+
+```
+위처럼 `~` 위치가 저장되었습니다.
+
+그리고 `TODO` 하단에 입력한 라인을 볼 수 있습니다.
+
+
+## 5. 디렉토리 구조 확인
 설치가 완료되면 홈 디렉토리 `~` 아래에 다음과 같은 구조가 자동으로 생성됩니다.
 
 ```bash
@@ -298,7 +348,7 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
     └── vault/
 ```
 
-## 5. (레이어 기준) 설치 과정
+## 6. (레이어 기준) 설치 과정
 
 설치 스크립트는 **Flow OS의 추상화 계층 구조를** 
 
