@@ -150,6 +150,22 @@ $
   - `Are you sure you want to continue connecting (yes/no/[fingerprint])?`라는 메세지가 다시 나온다면,
   - `yes`를 입력하고 엔터를 누르시면 됩니다.
 
+TODO: core 디렉토리의 파일을 flat하게 만들기
+```bash
+my/.flow $ t
+.
+├── core
+│   ├── memo.md
+│   ├── next.md
+│   ├── resume.md
+│   └── todo.md
+├── resume.md
+└── todo.md
+
+2 directories, 6 files
+my/.flow $
+```
+
 ------------------------------
 ## 2. 저장소 클론 (Clone)
 
