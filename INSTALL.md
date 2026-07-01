@@ -38,9 +38,120 @@
 ```
 
 보다 자세한 내용은 [설계 철학](docs/philosophy.md)를 참고하세요.
+------------------------------
+## 1. 새 SSH 키를 생성하여 깃허브에 추가
+- SSH 키는 '공개키(GitHub에 등록됨)'와 '개인키(로컬 기기에 저장됨)' 한 쌍으로 이루어져 있습니다.
+- 보안상 개인키는 여러 기기에서 공유하지 않는 것이 원칙이므로, 기기마다 별도의 키를 등록합니다.
+
+터미널(예: Linux 환경)에서 새로운 키를 생성하고 등록하는 방법은 다음과 같습니다.
+
+1.터미널에서 새 SSH 키 생성
+로컬 기기 (예: 맥북, 크롬북)의 리눅스 터미널을 열고 아래 명령어를 입력합니다.
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+이메일 부분은 본인의 깃허브 계정 이메일로 변경하세요. 예:aimldl.tkim@gmail.com
+
+명령어를 입력하면 파일을 저장할 위치나 비밀번호(passphrase)를 묻는데, 모두 엔터(Enter)를 쳐서 기본값으로 넘어갑니다.
+
+```bash
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/thekim/.ssh/id_ed25519): 
+Enter passphrase for "/home/thekim/.ssh/id_ed25519" (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/thekim/.ssh/id_ed25519
+Your public key has been saved in /home/thekim/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:******************************************* [REDACTED_EMAIL]
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|                 |
+|                 |
+|                 |
+|   [REDACTED]    |
+|                 |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+```
+
+2.SSH 에이전트 실행 및 키 추가
+
+생성한 키를 시스템이 인식할 수 있도록 등록합니다. 터미널에 아래 두 줄을 차례대로 입력하세요.
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+예
+
+```bash
+$ eval "$(ssh-agent -s)"
+Agent pid 18402
+$ ssh-add ~/.ssh/id_ed25519
+Identity added: /home/thekim/.ssh/id_ed25519 (aimldl.tkim@gmail.com)
+$
+```
+
+3.생성된 공개키(Public Key) 확인 및 복사
+이제 깃허브에 등록할 '공개키' 내용을 터미널 화면에 출력합니다.
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+예
+```bash
+$ cat ~/.ssh/id_ed25519.pub
+ssh-ed25519 ******************************************* aimldl.tkim@gmail.com
+```
+ssh-ed25519 ... 로 시작해서 본인 이메일로 끝나는 긴 텍스트가 나오면, 텍스트 전체를 마우스로 드래그하여 복사합니다.
+
+
+4.깃허브에 새 키 등록
+브라우저에서 GitHub SSH settings 페이지로 이동합니다.
+
+우측 상단의 New SSH key 초록색 버튼을 클릭합니다.
+
+* Title에는 알아보기 쉽게 "크롬북 터미널의 퍼블릭키" 등으로 적습니다.
+* Key type은 Authentication Key 그대로 둡니다.
+* Key 입력란에 방금 복사한 텍스트를 붙여넣기 하고 Add SSH key 버튼을 누릅니다.
+
+이렇게 설정하고 나면 깃허브 SSH keys 목록에 
+- "크롬북 터미널의 퍼블릭키"
+처럼 등록된 키가 나란히 등록됩니다.
+
+5. 연결이 잘 되었는지 테스트해보기
+- 등록한 기기 모두에서 안전하게 깃허브를 사용할 수 있게 됩니다.
+- 터미널에서 깃허브와 SSH 연결이 완벽하게 되었는지 확인하는 방법은 간단합니다.
+
+
+```bash
+ssh -T git@github.com
+```
+
+성공 메세지 (연결 완료)
+- `Hi (본인의 깃허브 아이디)! You've successfully authenticated, but GitHub does not provide shell access.`
+- 정상적으로 연결이 되었다면 위와 같은 환영 메세지가 출력됩니다.
+- 이제 에러 없이 마음껏 git clone을 진행하실 수 있습니다!
+
+예
+```bash
+$ ssh -T git@github.com
+Hi aimldl! You've successfully authenticated, but GitHub does not provide shell access.
+$
+```
+
+만약 연결 확인 메세지가 나올 경우
+  - `Are you sure you want to continue connecting (yes/no/[fingerprint])?`라는 메세지가 다시 나온다면,
+  - `yes`를 입력하고 엔터를 누르시면 됩니다.
 
 ------------------------------
-## 1. 저장소 클론 (Clone)
+## 2. 저장소 클론 (Clone)
 
 * 원격 저장소 주소: https://github.com/aimldl/flow-os
 
@@ -73,7 +184,7 @@ cd ~ && mv flow-os .flow-os
 
 자세한 내용은 [부록. GitHub SSH 설정 가이드]() 을 참고하세요.
 
-## 2. 시스템 셋업
+## 3. 시스템 셋업
 
 클론이 완료되면 해당 디렉토리로 이동하여 설치 스크립트를 실행합니다.
 
@@ -94,7 +205,7 @@ chmod +x install.sh
 >
 > 참고: macOS Catalina(10.15) 버전부터 터미널의 기본 쉘이 Bash에서 Zsh로 변경됐습니다.
 
-## 3. 디렉토리 구조 확인
+## 4. 디렉토리 구조 확인
 설치가 완료되면 홈 디렉토리 `~` 아래에 다음과 같은 구조가 자동으로 생성됩니다.
 
 ```bash
@@ -115,7 +226,7 @@ chmod +x install.sh
     └── vault/
 ```
 
-## 4. (레이어 기준) 설치 과정
+## 5. (레이어 기준) 설치 과정
 
 설치 스크립트는 **Flow OS의 추상화 계층 구조를** 
 
