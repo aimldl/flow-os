@@ -212,7 +212,36 @@ chmod +x install.sh
 ./install.sh
 ```
 
-설치 완료 후 터미널을 재시작하거나 `exec zsh`를 실행합니다.
+예
+```bash
+~$ cd .flow-os/
+~/.flow-os$ ls
+CHANGELOG.md  INSTALL.md    README.ja.md  TODO.md  docs        shell
+CLAUDE.md     README.en.md  README.md     bin      install.sh
+~/.flow-os$ chmod +x install.sh
+~/.flow-os$ ./install.sh 
+🚀 Installing Flow OS...
+  ✅ [OS]    .zshrc updated
+  ✅ [OS]    .bashrc updated
+  ✅ [data]  ~/my created
+  ✅ [state] ~/my/.flow created
+  ✅ [intent] purpose dirs ready (craft forge jobs projects temp vault)
+  ✅ [state] memo.md created
+  ✅ [state] next.md created
+  ✅ [state] resume.md created
+  ✅ [state] todo.md created
+  ✅ [env]   bin/ scripts executable
+
+✅ Done. Restart terminal or run: exec zsh  (zsh)
+                              or run: exec bash (bash)
+~/.flow-os$ 
+
+```
+
+설치 완료 후 터미널을 재시작하거나 
+- zshell은 `exec zsh`를 
+- bash는 `exec bash`를
+실행합니다.
 
 > 💡 환경 호환성 안내
 > 설치 스크립트는 Linux의 Bash 환경과 macOS의 Zsh 환경을 자동 감지하고 지원하도록 설계되었습니다.
