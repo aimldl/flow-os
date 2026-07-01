@@ -324,8 +324,39 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 ```
 위처럼 `~` 위치가 저장되었습니다.
 
-그리고 `TODO` 하단에 입력한 라인을 볼 수 있습니다.
+그리고 `TODO` 하단에 입력한 해야할 일을 볼 수 있습니다.
 
+`my` 명령어 테스트
+```bash
+  ...
+🚀 Run 'go' to resume at ~
+~ $
+```
+
+`my`를 입력해서 `~/my` 디렉토리로 이동한 뒤, `t` (`tree` 명령어의 alias)를 실행하면
+```bash
+~ $ my
+my $ t
+.
+├── craft
+├── forge
+├── jobs
+├── projects
+├── temp
+└── vault
+
+7 directories, 0 files
+my $
+```
+
+의도 레이어의 폴더들이 생성됐음을 알 수 있습니다.
+
+`~/my/.flow` 디렉토리는 `la` 명령어로 확인할 수 있습니다.
+```bash
+my $ la
+.flow  craft  forge  jobs  projects  temp  vault
+my $
+```
 
 ## 5. 디렉토리 구조 확인
 설치가 완료되면 홈 디렉토리 `~` 아래에 다음과 같은 구조가 자동으로 생성됩니다.
