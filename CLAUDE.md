@@ -72,7 +72,7 @@ Key commands (all have multiple aliases defined in `shell/zsh/alias`):
 
 **bash:** `.bashrc` sources → `shell/bash/config` → `shell/bash/alias` → `shell/bash/functions` → `shell/bash/rc` (dashboard)
 
-`install.sh` detects available shells and appends the appropriate loader block to `~/.zshrc` and/or `~/.bashrc`.
+`install.sh` detects available shells and appends the appropriate loader block to `~/.zshrc` and/or `~/.bashrc`. It also creates `~/.zshconfig` and `~/.zshalias` (personal dotfiles outside this repo, for Jupyter Lab/Docker/Python PATH and aliases) if they don't exist, and wires their loader into `~/.zshrc`. Before any of that, it offers to install Python3, Docker, and Jupyter Lab if they're missing (via `brew` on macOS, `apt-get` on Debian/Ubuntu).
 
 ## Language
 
