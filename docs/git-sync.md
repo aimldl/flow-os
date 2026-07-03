@@ -28,6 +28,19 @@ Flow OS는 터미널의 시작과 종료 시점에 git 동기화를 자동으로
 
 수동 실행에는 간격 제한이 적용되지 않습니다.
 
+## 사용 예시: AFK 중 스마트폰으로 확인
+
+`q`/`qq`로 종료할 때 자동으로 push 되지만, 터미널을 끄지 않고 자리를 비울 때(AFK)는 `gpush`를 수동으로 실행해 지금까지의 변경 사항을 바로 GitHub에 반영할 수 있습니다.
+
+```bash
+my % gpush
+📦 git push...
+✅ my (updated)
+✅ done
+```
+
+이렇게 push해두면 스마트폰의 GitHub 앱이나 모바일 브라우저에서 `todo.md`, `resume.md`, `memo.md` 등 최신 내용을 바로 확인할 수 있습니다.
+
 ## 대상 저장소
 
 `~/.flow-os/bin/git-target-repos`에서 관리합니다.
