@@ -33,11 +33,13 @@ check_and_install() {
 if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
     check_and_install "Python3" "command -v python3" "brew install python"
     check_and_install "Docker" "command -v docker" "brew install --cask docker"
+    check_and_install "VS Code" "command -v code" "brew install --cask visual-studio-code"
 elif command -v apt-get >/dev/null 2>&1; then
     check_and_install "Python3" "command -v python3" "sudo apt-get update && sudo apt-get install -y python3 python3-pip"
     check_and_install "Docker" "command -v docker" "sudo apt-get update && sudo apt-get install -y docker.io"
+    check_and_install "VS Code" "command -v code" "sudo snap install --classic code"
 else
-    echo "  ⚠️  [tool]  Unsupported platform for auto-install of Python3/Docker — please install manually if needed"
+    echo "  ⚠️  [tool]  Unsupported platform for auto-install of Python3/Docker/VS Code — please install manually if needed"
 fi
 
 check_and_install "Jupyter Lab" "command -v jupyter" "python3 -m pip install --user jupyterlab"
