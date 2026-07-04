@@ -86,7 +86,7 @@ FLOW_MEMO_VIEW=off | layer | full_path
 12:10  .flow-os     | 설정 수정
 12:10  my           | 작업 시작
 12:10  .flow        | 상태 정리
-12:10  my/projects  | API 수정
+12:10  my/tasks     | API 수정
 12:10  my/forge     | 아이디어 정리
 ```
 
@@ -102,7 +102,7 @@ FLOW_MEMO_VIEW=off | layer | full_path
 전체 경로를 포함하여 출력합니다.
 
 ```
-12:10  ~/my/projects/flow-os/backend | 버그 수정
+12:10  ~/my/tasks/flow-os/backend | 버그 수정
 ```
 
 - 디버깅 및 추적에 유용
@@ -118,7 +118,7 @@ HH:MM  <context> | <message>
 예:
 
 ```
-12:10  my/projects  | API 수정
+12:10  my/tasks     | API 수정
 ```
 
 ### 정렬
@@ -127,7 +127,7 @@ HH:MM  <context> | <message>
 - 가독성을 위해 일정한 컬럼 구조 유지
 
 ```
-12:10  my/projects  | API 수정
+12:10  my/tasks     | API 수정
 12:10  my/forge     | 아이디어 정리
 ```
 
@@ -145,11 +145,11 @@ Flow OS의 상태 기반 구조를 그대로 반영합니다.
 ### 구조 인식 강화
 
 ```
-my/projects
+my/tasks
 ```
 
 - `my` → 데이터 레이어
-- `projects` → 의도 레이어
+- `tasks` → 의도 레이어
 
 구조를 자연스럽게 학습하도록 유도합니다.
 

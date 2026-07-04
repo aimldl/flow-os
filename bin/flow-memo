@@ -61,7 +61,7 @@ esac
 
 # Compute max width dynamically (based on current context + known longest)
 # 최대 길이 계산 (동적 계산)
-base_max="my/projects"
+base_max="my/tasks"
 max_width=${#base_max}
 
 if [ ${#context} -gt $max_width ]; then

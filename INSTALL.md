@@ -10,7 +10,7 @@
 ├── .flow-os/      # OS 레이어
 └── my/            # 데이터 레이어
     ├── .flow/     # 상태 레이어
-    └── (purpose)  # 의도 레이어  (craft, forge, jobs, ...)
+    └── (purpose)  # 의도 레이어  (craft, forge, tasks, ...)
 ```
 
 사용자 입장에서 사실상 하나의 작업 공간만 보입니다. 
@@ -241,7 +241,7 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
   ✅ [OS]    .bashrc updated
   ✅ [data]  ~/my created
   ✅ [state] ~/my/.flow created
-  ✅ [intent] purpose dirs ready (craft forge jobs projects temp vault)
+  ✅ [intent] purpose dirs ready (craft forge tasks temp vault)
   ✅ [state] memo.md created
   ✅ [state] next.md created
   ✅ [state] resume.md created
@@ -280,8 +280,7 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 ✨ my            의도  인지 상태
    ├── craft     유지  이미 익숙한 기술 유지
    ├── forge     학습  배우고 성장
-   ├── jobs      실행  실행 단위 작업
-   ├── projects  확장  job보다 큰 프로젝트
+   ├── tasks     실행  실행 단위 작업
    ├── temp      임시  임시 작업/파일
    └── vault     보호  비공개 데이터 (private)
 
@@ -326,8 +325,7 @@ CLAUDE.md     README.en.md  README.md     bin      install.sh
 ✨ my            의도  인지 상태
    ├── craft     유지  이미 익숙한 기술 유지
    ├── forge     학습  배우고 성장
-   ├── jobs      실행  실행 단위 작업
-   ├── projects  확장  job보다 큰 프로젝트
+   ├── tasks     실행  실행 단위 작업
    ├── temp      임시  임시 작업/파일
    └── vault     보호  비공개 데이터 (private)
 
@@ -356,12 +354,11 @@ my $ t
 .
 ├── craft
 ├── forge
-├── jobs
-├── projects
+├── tasks
 ├── temp
 └── vault
 
-7 directories, 0 files
+6 directories, 0 files
 my $
 ```
 
@@ -370,7 +367,7 @@ my $
 `~/my/.flow` 디렉토리는 `la` 명령어로 확인할 수 있습니다.
 ```bash
 my $ la
-.flow  craft  forge  jobs  projects  temp  vault
+.flow  craft  forge  tasks  temp  vault
 my $
 ```
 
@@ -389,8 +386,7 @@ my $
     │       └── todo.md
     ├── craft/             # 의도 레이어
     ├── forge/
-    ├── jobs/
-    ├── projects/
+    ├── tasks/
     ├── temp/
     └── vault/
 ```
@@ -406,7 +402,7 @@ my $
 └── my/            # 데이터 레이어
     ├── .flow/     # 상태 레이어
     │   └── core/  # 상태 파일
-    └── (purpose)  # 의도 레이어 (craft, forge, jobs, ...)
+    └── (purpose)  # 의도 레이어 (craft, forge, tasks, ...)
 ```
 
 아래 순서로 구성합니다.
@@ -417,7 +413,7 @@ my $
 | 1    | OS     | 연결/활성화 | `~/.zshconfig`, `~/.zshalias` 생성 후 `~/.zshrc`에 로더 추가                           |
 | 2    | 데이터 | 생성        | `~/my` 작업 공간 생성                                                                  |
 | 3    | 상태   | 생성        | `~/my/.flow`  생성                                                                     |
-| 4    | 의도   | 생성        | `craft`, `forge`, `jobs`, `projects`, `temp`, `vault` 생성                             |
+| 4    | 의도   | 생성        | `craft`, `forge`, `tasks`, `temp`, `vault` 생성                                        |
 | 5    | 상태   | 초기화      | `~/my/.flow/core`에 핵심 상태 파일 (`memo.md`, `next.md`, `resume.md`, `todo.md`) 생성 |
 | 6    |        | 실행 환경   | `bin/` 스크립트에 실행 권한 부여                                                       |
 

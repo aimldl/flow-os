@@ -195,12 +195,12 @@ else
 fi
 
 # Step 4. Intent layer — create
-#   Create craft, forge, jobs, projects, temp, vault
+#   Create craft, forge, tasks, temp, vault
 
 # 단계 4. 의도 레이어 — 생성
-#   craft, forge, jobs, projects, temp, vault 생성
+#   craft, forge, tasks, temp, vault 생성
 
-PURPOSE_DIRS=(craft forge jobs projects temp vault)
+PURPOSE_DIRS=(craft forge tasks temp vault)
 
 for dir in "${PURPOSE_DIRS[@]}"; do
     mkdir -p "$HOME/my/$dir"

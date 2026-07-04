@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-07-04
+- 의도 레이어 디렉토리명 변경  
+  `jobs` + `projects` → `tasks` (하나로 통합)
+
 ## 2026-06-28
 - `.flow` 구조 평탄화: `core/` 서브디렉토리 제거, 파일을 `.flow/` 루트로 이동
 - `history/YYYY-MM-DD-*/` 폐지 → 월별 아카이브 파일 (`v-memo-YYYY-MM.md`, `v-todo-YYYY-MM.md`) 도입
