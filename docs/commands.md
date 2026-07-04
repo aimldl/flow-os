@@ -23,13 +23,13 @@ FLOW_MEMO_VIEW=off | layer | full_path
 ```
 
 - off (기본): context 없이 메모만 기록
-- layer: Flow OS 구조 포함 (예: my/tasks, .flow, .flow-os)
+- layer: Flow OS 구조 포함 (예: my/quests, .flow, .flow-os)
 - full_path: 전체 경로 포함
 
 예:
 
 ```
-12:10  my/tasks     | API 수정
+12:10  my/quests    | API 수정
 12:10  .flow        | 상태 정리
 12:10  ~/my/...     | 디버깅 로그
 ```

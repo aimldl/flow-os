@@ -34,7 +34,7 @@ terminal start → Dashboard → go → work → clean → quit
     │       └── next.md
     ├── craft/         # Purpose layer
     ├── forge/
-    ├── tasks/
+    ├── quests/
     ├── temp/
     └── vault/
 ```
