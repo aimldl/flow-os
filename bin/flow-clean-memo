@@ -27,15 +27,11 @@ content=$(sed '/^# memo$/d' "$CORE" | sed '/./,$!d')
 
 # Prepend entry to monthly archive (latest date on top)
 # 월별 아카이브 앞에 추가 (최신 날짜가 위)
-if [ -f "$TARGET" ]; then
-    {
-        printf -- "---\n\n   %s\n\n%s\n\n" "$today_full" "$content"
-        cat "$TARGET"
-    } > "$TARGET.tmp"
-    mv "$TARGET.tmp" "$TARGET"
-else
-    printf -- "---\n\n   %s\n\n%s\n\n---\n" "$today_full" "$content" > "$TARGET"
-fi
+{
+    printf -- "   %s\n%s\n---\n" "$today_full" "$content"
+    [ -f "$TARGET" ] && cat "$TARGET"
+} > "$TARGET.tmp"
+mv "$TARGET.tmp" "$TARGET"
 
 # Reset core memo.md
 # CORE memo.md 초기화

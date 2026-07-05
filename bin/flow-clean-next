@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# flow-clean-next — Archive next.md to monthly v-next-YYYY-MM.md and reset
-# flow-clean-next — next.md를 월별 v-next-YYYY-MM.md로 아카이브하고 초기화
+# flow-clean-next — Archive [v]/[x] items to v-next-YYYY-MM.md, keep unfinished items in next.md
+# flow-clean-next — [v]/[x] 항목만 v-next-YYYY-MM.md로 이동, 미완료 항목은 next.md에 그대로 유지
 
 source "$HOME/.flow-os/bin/lib-path"
 
@@ -14,31 +14,25 @@ ym="${today:0:7}"
 
 TARGET="$FLOW_CORE/v-next-$ym.md"
 
-# Idempotency: skip if today's entry already archived
-# 중복 방지: 오늘 날짜 항목이 이미 있으면 건너뜀
-if grep -q "^   $today" "$TARGET" 2>/dev/null; then
-    echo "⚠️  next for $today_full already archived — skipped"
-    exit 0
-fi
+# ✅ Archive completed items ([v] or [x]) to monthly file
+# ✅ 완료된 항목 ([v] 또는 [x])을 월별 파일로 이동
+completed=$(grep -E '^\[(v|x)\]' "$CORE" 2>/dev/null || true)
 
-# Extract content: strip leading '# next' header and leading blank lines
-# 내용 추출: '# next' 헤더 및 앞 빈줄 제거
-content=$(sed '/^# next$/d' "$CORE" | sed '/./,$!d')
-
-# Prepend entry to monthly archive (latest date on top)
-# 월별 아카이브 앞에 추가 (최신 날짜가 위)
-if [ -f "$TARGET" ]; then
+if [ -n "$completed" ] && ! grep -q "^   $today" "$TARGET" 2>/dev/null; then
     {
-        printf -- "---\n\n   %s\n\n%s\n\n" "$today_full" "$content"
-        cat "$TARGET"
+        printf -- "   %s\n%s\n---\n" "$today_full" "$completed"
+        [ -f "$TARGET" ] && cat "$TARGET"
     } > "$TARGET.tmp"
     mv "$TARGET.tmp" "$TARGET"
-else
-    printf -- "---\n\n   %s\n\n%s\n\n---\n" "$today_full" "$content" > "$TARGET"
 fi
 
-# Reset core next.md
-# CORE next.md 초기화
-echo "# next" > "$CORE"
+# ✅ Rebuild next.md: static header + all non-completed lines, unchanged and unpadded
+# ✅ next.md 재작성: 정적 헤더 + 완료되지 않은 모든 줄 (변경/패딩 없이 그대로 유지)
+kept=$(grep -v -E '^\[(v|x)\]' "$CORE" | sed '/^# next$/d' | sed '/./,$!d')
 
-echo "✅ next archived to $(flow_pretty_path "$TARGET")"
+{
+  echo "# next"
+  [ -n "$kept" ] && printf '%s\n' "$kept"
+} > "$CORE"
+
+echo "✅ next cleaned"
