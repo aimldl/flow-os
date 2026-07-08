@@ -2,7 +2,7 @@ Translations: [한국어](README.md) | **English** | [日本語](README.ja.md)
 
 # Flow OS
 
-> A personal anti-procrastination shell system that minimizes cognitive load for resuming priority tasks.
+> A shell system designed to keep you in the flow by reducing the cognitive friction of switching back to high-priority tasks.
 
 ## What is Flow OS?
 
