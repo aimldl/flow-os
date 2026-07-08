@@ -4,6 +4,14 @@ Translations: [한국어](README.md) | **English** | [日本語](README.ja.md)
 
 > A shell system designed to keep you in the flow by reducing the cognitive friction of switching back to high-priority tasks.
 
+## Quick Start
+
+```bash
+git clone git@github.com:aimldl/flow-os.git ~/.flow-os
+cd ~/.flow-os && chmod +x install.sh && ./install.sh
+exec zsh
+```
+
 ## What is Flow OS?
 
 Flow OS is a shell configuration layer that lives at `~/.flow-os`. It reduces the mental friction of starting work by always showing you exactly where you left off — no remembering, no deciding, just resuming.
@@ -49,14 +57,6 @@ terminal start → Dashboard → go → work → clean → quit
 | `qq` | git push → save resume → close terminal (no review) |
 | `cleanmemo` | Archive memo.md to history |
 | `cleantodo` | Archive completed items, keep open items |
-
-## Quick Start
-
-```bash
-git clone git@github.com:aimldl/flow-os.git ~/.flow-os
-cd ~/.flow-os && chmod +x install.sh && ./install.sh
-exec zsh
-```
 
 See [INSTALL.md](INSTALL.md) for the full installation guide.
 
