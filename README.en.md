@@ -9,8 +9,23 @@ Translations: [한국어](README.md) | **English** | [日本語](README.ja.md)
 ```bash
 git clone git@github.com:aimldl/flow-os.git ~/.flow-os
 cd ~/.flow-os && chmod +x install.sh && ./install.sh
+```
+
+**Restart the shell**
+
+For Bash (Linux, etc.)
+```bash
+bash
+```
+
+or Z Shell (macOS, etc.)
+
+```bash
 exec zsh
 ```
+
+See [INSTALL.md](INSTALL.md) for the full installation guide.
+
 
 ## What is Flow OS?
 
@@ -57,8 +72,6 @@ terminal start → Dashboard → go → work → clean → quit
 | `qq` | git push → save resume → close terminal (no review) |
 | `cleanmemo` | Archive memo.md to history |
 | `cleantodo` | Archive completed items, keep open items |
-
-See [INSTALL.md](INSTALL.md) for the full installation guide.
 
 ## Documentation
 
