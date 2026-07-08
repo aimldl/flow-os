@@ -2,7 +2,7 @@ Translations: **한국어** | [English](README.en.md) | [日本語](README.ja.md
 
 # Flow OS
 
-> 우선순위 작업으로 복귀하는 인지적 부담을 최소화하는 개인용 미루기 방지 셸 시스템
+> 우선순위 작업으로 복귀하는 인지적 부담을 최소화하여 몰입 (flow)을 유도하는 셸 시스템
 
 ## Flow OS란?
 
