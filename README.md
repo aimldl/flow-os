@@ -10,14 +10,14 @@ Translations: **한국어** | [English](README.en.md) | [日本語](README.ja.md
 git clone git@github.com:aimldl/flow-os.git ~/.flow-os
 cd ~/.flow-os && chmod +x install.sh && ./install.sh
 ```
-쉘 재시작
+**쉘 재시작**
 
-### Bash 사용 시 (Linux 등)
+Bash 사용 시 (Linux 등)
 ```bash
 bash
 ```
 
-### Z Shell 사용 시 (MacOS 등)
+Z Shell 사용 시 (MacOS 등)
 ```bash
 exec zsh
 ```
