@@ -44,7 +44,7 @@ fi
 # ✅ Rebuild todo.md: today's date header + existing [] items + padding to 3
 # ✅ todo.md 재작성: 오늘 날짜 헤더 + 기존 [] 항목 + 3개가 되도록 패딩
 existing=$(grep '^\[\]' "$CORE" 2>/dev/null || true)
-remaining=$(grep -c '^\[\]' "$CORE" 2>/dev/null || echo 0)
+remaining=$(grep -c '^\[\]' "$CORE" 2>/dev/null)
 new_count=$(( 3 - remaining < 0 ? 0 : 3 - remaining ))
 
 {
