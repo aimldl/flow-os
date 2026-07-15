@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-07-15
+- 프롬프트 버그 수정: 가상환경(venv) 활성화 시 `(venv)` 표시가 안 뜨던 문제 해결  
+  (`shell/zsh/rc`, `shell/bash/rc`의 `_set_prompt`가 매번 프롬프트를 덮어써서 발생)
+
 ## 2026-07-04
 - 의도 레이어 디렉토리명 변경  
   `tasks` → `quests`
