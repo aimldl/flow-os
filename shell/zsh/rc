@@ -24,16 +24,16 @@ echo "   Flow OS"
 echo "🎯 목표: 기억하지 않고, 망설이지 않고, 바로 실행하는 상태 만들기"
 echo "👉 목적: 기억 복원, 현재 상태 즉시 인지, 작업 진입 마찰 제거"
 echo "🔄 흐름: 시작 → 복귀 → 유지 → 종료"
-echo "              (💭 잡생각→흘려보냄)"
+echo "               (💭 잡생각→흘려보냄)"
 echo ""
 echo "   터미널 → todo → go → 작업1 → 작업2 → 작업3 → clean → quit"
-echo "                         (🧠 → memo → todo)"
-echo "✨ my            의도  인지 상태"
-echo "   ├── craft     유지  이미 익숙한 기술 유지"
-echo "   ├── forge     학습  배우고 성장"
-echo "   ├── quests    실행  실행 단위 작업"
-echo "   ├── temp      임시  임시 작업/파일"
-echo "   └── vault     보호  비공개 데이터 (private)"
+echo "               (🧠 → memo → todo)"
+echo "✨ my          의도  인지 상태"
+echo "   ├── craft   유지  이미 익숙한 기술 유지"
+echo "   ├── forge   학습  배우고 성장"
+echo "   ├── quests  실행  실행 단위 작업"
+echo "   ├── temp    임시  임시 작업/파일"
+echo "   └── vault   보호  비공개 데이터 (private)"
 
 echo "📝 TODO"
 [ -f "$HOME/my/.flow/todo.md" ] && grep -v "^#" "$HOME/my/.flow/todo.md" | grep -v "^$"
@@ -48,7 +48,7 @@ echo "🚀 Run 'go' to resume at '${resume_path}'"
 setopt PROMPT_SUBST
 
 _set_prompt() {
-    local dir
+    local dir venv
 
     if [[ "$PWD" == "$HOME" ]]; then
         dir="~"
@@ -60,7 +60,11 @@ _set_prompt() {
 
     dir="${dir/#~\//}"
 
-    PROMPT="${dir} %% "
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="(${VIRTUAL_ENV:t}) "
+    fi
+
+    PROMPT="${venv}${dir} %% "
 }
 
 autoload -U add-zsh-hook

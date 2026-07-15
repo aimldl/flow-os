@@ -51,7 +51,7 @@ echo "🚀 Run 'go' to resume at ${resume_path}"
 # --------------------------------------------------
 
 _set_prompt() {
-    local dir
+    local dir venv
     if [[ "$PWD" == "$HOME" ]]; then
         dir="~"
     elif [[ "$PWD" == "$HOME/"* ]]; then
@@ -59,7 +59,10 @@ _set_prompt() {
     else
         dir="$PWD"
     fi
-    PS1="${dir} \$ "
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="($(basename "$VIRTUAL_ENV")) "
+    fi
+    PS1="${venv}${dir} \$ "
 }
 
 PROMPT_COMMAND="_set_prompt"
